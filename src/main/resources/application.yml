@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: wishlist
+    
+springdoc:
+  show-actuator: true
+  writer-with-default-pretty-printer: true
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - url: /openapi.yml
+        name: v0
