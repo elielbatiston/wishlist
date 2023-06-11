@@ -1,6 +1,6 @@
 package com.elielbatiston.wishlist.adapters.gateways.repositories.models;
 
-import com.elielbatiston.wishlist.domain.Wishlist;
+import com.elielbatiston.wishlist.domains.Wishlist;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -1,6 +1,6 @@
 package com.elielbatiston.wishlist.adapters.gateways.repositories.models;
 
-import com.elielbatiston.wishlist.domain.Product;
+import com.elielbatiston.wishlist.domains.Product;
 
 public class ProductModel {
 

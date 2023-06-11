@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.domain;
+package com.elielbatiston.wishlist.domains;
 
 import java.util.List;
 

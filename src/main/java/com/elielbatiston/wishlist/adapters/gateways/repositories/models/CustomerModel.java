@@ -1,6 +1,6 @@
 package com.elielbatiston.wishlist.adapters.gateways.repositories.models;
 
-import com.elielbatiston.wishlist.domain.Customer;
+import com.elielbatiston.wishlist.domains.Customer;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 public class CustomerModel {

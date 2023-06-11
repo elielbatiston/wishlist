@@ -1,11 +1,10 @@
 package com.elielbatiston.wishlist.adapters.gateways.repositories;
 
-import com.elielbatiston.wishlist.domain.Customer;
-import com.elielbatiston.wishlist.domain.Product;
-import com.elielbatiston.wishlist.domain.Wishlist;
+import com.elielbatiston.wishlist.domains.Customer;
+import com.elielbatiston.wishlist.domains.Product;
+import com.elielbatiston.wishlist.domains.Wishlist;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
