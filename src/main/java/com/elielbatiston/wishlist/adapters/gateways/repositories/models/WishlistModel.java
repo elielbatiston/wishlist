@@ -23,13 +23,24 @@ public class WishlistModel {
         this.products = products;
     }
 
+    public Wishlist toDomain() {
+        return new Wishlist(
+            this.id.toString(),
+            this.customer.toDomain(),
+            this.products.stream()
+                .map(it -> it.toDomain())
+                .collect(Collectors.toList())
+        );
+    }
+
     public static WishlistModel fromDomain(Wishlist wishlist) {
+        final ObjectId id = wishlist.getId() == null ? null : new ObjectId(wishlist.getId());
         return new WishlistModel(
-           new ObjectId(wishlist.getId()),
-           CustomerModel.fromDomain(wishlist.getCustomer()),
-           wishlist.getProducts().stream()
+            id,
+            CustomerModel.fromDomain(wishlist.getCustomer()),
+            wishlist.getProducts().stream()
                 .map(it -> ProductModel.fromDomain(it))
-               .collect(Collectors.toList())
+                .collect(Collectors.toList())
         );
     }
 }
