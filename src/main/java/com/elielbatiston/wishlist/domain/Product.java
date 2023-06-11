@@ -1,19 +1,14 @@
 package com.elielbatiston.wishlist.domain;
 
-public class Product {
+public class Product extends Entity {
 
-	private String id;
 	private String name;
 	private Double price;
 
 	public Product(String id, String name, Double price) {
-		this.id = id;
+		super(id);
 		this.name = name;
 		this.price = price;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public String getName() {

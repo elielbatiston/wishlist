@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="971f1a97-ad24-48b4-8127-24583abe13aa" name="Changes" comment="" />
+    <list default="true" id="971f1a97-ad24-48b4-8127-24583abe13aa" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/elielbatiston/wishlist/domain/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/elielbatiston/wishlist/domain/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/elielbatiston/wishlist/domain/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/elielbatiston/wishlist/domain/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/elielbatiston/wishlist/domain/Wishlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/elielbatiston/wishlist/domain/Wishlist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/elielbatiston/wishlist/WishlistApplicationTests.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,9 +38,32 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/eliel/repositorio/wishlist"
+    "last_opened_file_path": "/home/eliel/repositorio/akinator-stock-replenishment"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="WishlistGatewayTest.save" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="wishlist" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.elielbatiston.wishlist.adapters.gateways.repositories.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.elielbatiston.wishlist.adapters.gateways.repositories" />
+      <option name="MAIN_CLASS_NAME" value="com.elielbatiston.wishlist.adapters.gateways.repositories.WishlistGatewayTest" />
+      <option name="METHOD_NAME" value="save" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.WishlistGatewayTest.save" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -44,5 +74,16 @@
       <updated>1686488177512</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/elielbatiston/wishlist/adapters/gateways/repositories/WishlistGatewayTest.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

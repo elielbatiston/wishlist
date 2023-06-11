@@ -1,17 +1,12 @@
 package com.elielbatiston.wishlist.domain;
 
-public class Customer {
+public class Customer extends Entity {
 
-    private String id;
     private String name;
 
     public Customer(String id, String name) {
-        this.id = id;
+        super(id);
         this.name = name;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getName() {
