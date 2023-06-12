@@ -5,4 +5,5 @@ import com.elielbatiston.wishlist.domains.Wishlist;
 public interface WishlistRepositoryPort {
 
     void save(final Wishlist wishlist);
+    Wishlist getWishlist(final String idCustomer);
 }
