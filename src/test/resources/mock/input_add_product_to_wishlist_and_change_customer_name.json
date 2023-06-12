@@ -1,7 +1,7 @@
 {
     "customer": {
         "id": "C1",
-        "name": "Customer 1"
+        "name": "Customer Change Name"
     },
     "product": {
         "id": "P1",
