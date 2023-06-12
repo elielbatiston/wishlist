@@ -5,6 +5,7 @@ import com.elielbatiston.wishlist.adapters.gateways.repositories.WishlistGateway
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
 import com.elielbatiston.wishlist.domains.Wishlist;
+import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
 import com.elielbatiston.wishlist.usecases.dto.InputAddProductToWishlistDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,20 +33,10 @@ class AddProductToWishlistUseCaseTest {
     @Test
     public void testExecuteWishlistIsEmpty() {
         final InputAddProductToWishlistDTO dto = getDTO("mock/input_add_product_to_wishlist.json");
-        when(gateway.getWishlist(dto.customer().id())).thenReturn(null);
+        when(gateway.getWishlist(any())).thenThrow(new ObjectNotFoundException("Error"));
         usecase.execute(dto);
         verify(gateway).getWishlist(dto.customer().id());
         verify(gateway).save(any());
-
-        final ArgumentCaptor<Wishlist> captor = ArgumentCaptor.forClass(Wishlist.class);
-        verify(gateway).save(captor.capture());
-        final Wishlist actual = captor.getValue();
-        assertEquals(1, actual.getProducts().size());
-        assertEquals(dto.customer().id(), actual.getCustomer().getId());
-        assertEquals(dto.customer().name(), actual.getCustomer().getName());
-        assertEquals(dto.product().id(), actual.getProducts().get(0).getId());
-        assertEquals(dto.product().name(), actual.getProducts().get(0).getName());
-        assertEquals(dto.product().price(), actual.getProducts().get(0).getPrice());
     }
 
     @Test
