@@ -1,16 +1,23 @@
 package com.elielbatiston.wishlist.adapters.gateways.repositories;
 
 import com.elielbatiston.wishlist.adapters.gateways.repositories.models.WishlistModel;
+import com.elielbatiston.wishlist.config.InternationalizationConfig;
+import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
 import com.elielbatiston.wishlist.domains.Wishlist;
+import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
@@ -20,8 +27,14 @@ class WishlistGatewayTest {
     @Mock
     private WishlistRepository repository;
 
+    @Mock
+    private MessagesHelper messagesHelper;
+
     @InjectMocks
     private WishlistGateway gateway;
+
+    @Mock(lenient = true, answer = Answers.RETURNS_DEEP_STUBS)
+    private InternationalizationConfig config;
 
     @Test
     public void testSave() {
@@ -34,7 +47,7 @@ class WishlistGatewayTest {
     public void testGetWishlist() {
         String id = "123456789012345678901234";
         final Wishlist wishlist = getWishlist(id);
-        when(repository.findByIdCustomer(id)).thenReturn(WishlistModel.fromDomain(wishlist));
+        when(repository.findByIdCustomer(any())).thenReturn(Optional.of(WishlistModel.fromDomain(wishlist)));
         final Wishlist actual = gateway.getWishlist(id);
         verify(repository).findByIdCustomer(id);
 
@@ -47,13 +60,18 @@ class WishlistGatewayTest {
     }
 
     @Test
-    public void testGetWishlistThenReturnNull() {
+    public void testGetWishlistShouldThrowObjectException() {
         String id = "123456789012345678901234";
-        when(repository.findByIdCustomer(id)).thenReturn(null);
-        final Wishlist actual = gateway.getWishlist(id);
+        final String message = String.format("Objeto não encontrado! Id: %s, Tipo: %s", id, Wishlist.class);
+        when(repository.findByIdCustomer(id)).thenReturn(Optional.empty());
+        when(config.getInternationalizedMessage(any())).thenReturn(message);
+        when(messagesHelper.getExceptionMessageObjectNotFound(any(), any())).thenReturn(message);
+        ObjectNotFoundException exception = assertThrowsExactly(ObjectNotFoundException.class, () -> {
+            gateway.getWishlist(id);
+        });
         verify(repository).findByIdCustomer(id);
-
-        assertEquals(null, actual);
+        assertEquals(ObjectNotFoundException.class, exception.getClass());
+        assertEquals(message, exception.getMessage());
     }
 
     private Wishlist getWishlist(String id) {

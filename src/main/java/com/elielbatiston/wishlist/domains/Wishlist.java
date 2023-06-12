@@ -13,16 +13,19 @@ public class Wishlist extends Entity {
 		this.customer = customer;
 	}
 
+	public Wishlist(final Customer customer) {
+		this(null, customer);
+	}
+
 	public Customer getCustomer() {
 		return customer;
 	}
 
 	public List<Product> getProducts() {
-		return products;
-	}
-
-	public Wishlist(final Customer customer) {
-		this(null, customer);
+		if (this.products == null) {
+			this.products = new ArrayList<>();
+		}
+		return this.products;
 	}
 
 	public void addProduct(Product product) {
@@ -30,5 +33,9 @@ public class Wishlist extends Entity {
 			this.products = new ArrayList<>();
 		}
 		this.products.add(product);
+	}
+
+	public void removeProduct(Product product) {
+		this.getProducts().remove(product);
 	}
 }
