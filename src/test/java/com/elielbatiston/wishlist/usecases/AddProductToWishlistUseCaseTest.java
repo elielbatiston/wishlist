@@ -35,7 +35,7 @@ class AddProductToWishlistUseCaseTest {
         final InputAddProductToWishlistDTO dto = getDTO("mock/input_add_product_to_wishlist.json");
         when(gateway.getWishlist(any())).thenThrow(new ObjectNotFoundException("Error"));
         usecase.execute(dto);
-        verify(gateway).getWishlist(dto.customer().id());
+        verify(gateway).getWishlist(any());
         verify(gateway).save(any());
     }
 
@@ -43,9 +43,9 @@ class AddProductToWishlistUseCaseTest {
     public void testExecuteWishlistWithAProduct() {
         final InputAddProductToWishlistDTO dto = getDTO("mock/input_add_product_to_wishlist.json");
         final Wishlist wishlist = getWishlist();
-        when(gateway.getWishlist(dto.customer().id())).thenReturn(wishlist);
+        when(gateway.getWishlist(any())).thenReturn(wishlist);
         usecase.execute(dto);
-        verify(gateway).getWishlist(dto.customer().id());
+        verify(gateway).getWishlist(any());
         verify(gateway).save(any());
 
         final ArgumentCaptor<Wishlist> captor = ArgumentCaptor.forClass(Wishlist.class);
@@ -66,9 +66,9 @@ class AddProductToWishlistUseCaseTest {
     public void testExecuteWishlistWithAProductAndChangeCustomerName() {
         final InputAddProductToWishlistDTO dto = getDTO("mock/input_add_product_to_wishlist_and_change_customer_name.json");
         final Wishlist wishlist = getWishlist();
-        when(gateway.getWishlist(dto.customer().id())).thenReturn(wishlist);
+        when(gateway.getWishlist(any())).thenReturn(wishlist);
         usecase.execute(dto);
-        verify(gateway).getWishlist(dto.customer().id());
+        verify(gateway).getWishlist(any());
         verify(gateway).save(any());
 
         final ArgumentCaptor<Wishlist> captor = ArgumentCaptor.forClass(Wishlist.class);

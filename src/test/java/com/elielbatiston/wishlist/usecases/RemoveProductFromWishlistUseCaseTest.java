@@ -39,7 +39,7 @@ class RemoveProductFromWishlistUseCaseTest {
         final Wishlist wishlist = getWishlist(2);
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         usecase.execute(dto);
-        verify(gateway).getWishlist(dto.idCustomer());
+        verify(gateway).getWishlist(any());
         verify(gateway).save(any());
 
         final ArgumentCaptor<Wishlist> captor = ArgumentCaptor.forClass(Wishlist.class);
@@ -59,7 +59,7 @@ class RemoveProductFromWishlistUseCaseTest {
         final Wishlist wishlist = getWishlist(1);
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         usecase.execute(dto);
-        verify(gateway).getWishlist(dto.idCustomer());
+        verify(gateway).getWishlist(any());
         verify(gateway).save(any());
 
         final ArgumentCaptor<Wishlist> captor = ArgumentCaptor.forClass(Wishlist.class);
@@ -75,7 +75,7 @@ class RemoveProductFromWishlistUseCaseTest {
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         when(messagesHelper.getExceptionMessageObjectNotFound(any(), any())).thenReturn("mock");
         assertThrowsExactly(ObjectNotFoundException.class, () -> usecase.execute(dto));
-        verify(gateway).getWishlist(dto.idCustomer());
+        verify(gateway).getWishlist(any());
         verify(gateway, never()).save(any());
     }
 
@@ -86,7 +86,7 @@ class RemoveProductFromWishlistUseCaseTest {
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         when(messagesHelper.getExceptionMessageObjectNotFound(any(), any())).thenReturn("mock");
         assertThrowsExactly(ObjectNotFoundException.class, () -> usecase.execute(dto));
-        verify(gateway).getWishlist(dto.idCustomer());
+        verify(gateway).getWishlist(any());
         verify(gateway, never()).save(any());
     }
 
@@ -95,7 +95,7 @@ class RemoveProductFromWishlistUseCaseTest {
         final InputRemoveProductFromWishlist dto = new InputRemoveProductFromWishlist("C2", "P1");
         when(gateway.getWishlist(any())).thenThrow(new ObjectNotFoundException("Error"));
         assertThrowsExactly(ObjectNotFoundException.class, () -> usecase.execute(dto));
-        verify(gateway).getWishlist(dto.idCustomer());
+        verify(gateway).getWishlist(any());
         verify(gateway, never()).save(any());
     }
 

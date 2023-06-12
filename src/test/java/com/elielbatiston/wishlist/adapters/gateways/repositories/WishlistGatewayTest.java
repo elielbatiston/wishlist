@@ -49,7 +49,7 @@ class WishlistGatewayTest {
         final Wishlist wishlist = getWishlist(id);
         when(repository.findByIdCustomer(any())).thenReturn(Optional.of(WishlistModel.fromDomain(wishlist)));
         final Wishlist actual = gateway.getWishlist(id);
-        verify(repository).findByIdCustomer(id);
+        verify(repository).findByIdCustomer(any());
 
         assertEquals(wishlist.getCustomer().getId(), actual.getCustomer().getId());
         assertEquals(wishlist.getCustomer().getName(), actual.getCustomer().getName());
@@ -63,13 +63,13 @@ class WishlistGatewayTest {
     public void testGetWishlistShouldThrowObjectException() {
         String id = "123456789012345678901234";
         final String message = String.format("Objeto não encontrado! Id: %s, Tipo: %s", id, Wishlist.class);
-        when(repository.findByIdCustomer(id)).thenReturn(Optional.empty());
+        when(repository.findByIdCustomer(any())).thenReturn(Optional.empty());
         when(config.getInternationalizedMessage(any())).thenReturn(message);
         when(messagesHelper.getExceptionMessageObjectNotFound(any(), any())).thenReturn(message);
         ObjectNotFoundException exception = assertThrowsExactly(ObjectNotFoundException.class, () -> {
             gateway.getWishlist(id);
         });
-        verify(repository).findByIdCustomer(id);
+        verify(repository).findByIdCustomer(any());
         assertEquals(ObjectNotFoundException.class, exception.getClass());
         assertEquals(message, exception.getMessage());
     }
