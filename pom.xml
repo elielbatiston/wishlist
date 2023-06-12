@@ -26,7 +26,7 @@
 
 		<!-- Sonar -->
 		<sonar.exclusions>
-			**/WishlistApplication*,
+			**/WishlistApplication*, **/helpers/*
 		</sonar.exclusions>
 	</properties>
 
@@ -110,9 +110,7 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco-maven-plugin.version}</version>
 				<configuration>
-					<excludes>
-						<exclude>${sonar.exclusions}</exclude>
-					</excludes>
+					<excludes>${sonar.exclusions}</excludes>
 				</configuration>
 				<executions>
 					<execution>
@@ -134,7 +132,8 @@
 									<element>CLASS</element>
 									<excludes>
 										<!-- COMMON COVERAGE EXCLUSIONS -->
-										<exclude>**WishlistApplication
+										<exclude>
+											**WishlistApplication
 										</exclude>
 									</excludes>
 									<limits>
