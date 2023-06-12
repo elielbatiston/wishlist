@@ -24,13 +24,13 @@ public class WishlistModel {
     }
 
     public Wishlist toDomain() {
-        return new Wishlist(
+        final Wishlist wishlist = new Wishlist(
             this.id.toString(),
-            this.customer.toDomain(),
-            this.products.stream()
-                .map(it -> it.toDomain())
-                .collect(Collectors.toList())
+            this.customer.toDomain()
         );
+        this.products.stream()
+            .forEach(it -> wishlist.addProduct(it.toDomain()));
+        return wishlist;
     }
 
     public static WishlistModel fromDomain(Wishlist wishlist) {

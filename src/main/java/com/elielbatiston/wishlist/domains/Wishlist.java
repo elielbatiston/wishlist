@@ -8,10 +8,9 @@ public class Wishlist extends Entity {
 	private Customer customer;
 	private List<Product> products;
 
-	public Wishlist(final String id, final Customer customer, List<Product> products) {
+	public Wishlist(final String id, final Customer customer) {
 		super(id);
 		this.customer = customer;
-		this.products = products;
 	}
 
 	public Customer getCustomer() {
@@ -23,7 +22,7 @@ public class Wishlist extends Entity {
 	}
 
 	public Wishlist(final Customer customer) {
-		this(null, customer, new ArrayList<>());
+		this(null, customer);
 	}
 
 	public void addProduct(Product product) {

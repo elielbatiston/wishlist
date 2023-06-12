@@ -1,0 +1,11 @@
+{
+    "customer": {
+        "id": "C1",
+        "name": "Customer 1"
+    },
+    "product": {
+        "id": "P1",
+        "name": "Product 1",
+        "price": 95.90
+    }
+}

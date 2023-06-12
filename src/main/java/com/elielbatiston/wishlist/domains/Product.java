@@ -5,7 +5,7 @@ public class Product extends Entity {
 	private String name;
 	private Double price;
 
-	public Product(String id, String name, Double price) {
+	public Product(final String id, final String name, final Double price) {
 		super(id);
 		this.name = name;
 		this.price = price;

@@ -1,13 +1,13 @@
 package com.elielbatiston.wishlist.domains;
 
 public abstract class Entity {
-  private String id;
+    private String id;
 
-  public Entity(String id) {
+    public Entity(String id) {
     this.id = id;
   }
 
-  public String getId() {
-    return id;
-  }
+    public String getId() {
+        return id;
+    }
 }
