@@ -6,6 +6,8 @@ server:
 spring:
   application:
     name: wishlist
+  web:
+    locale: pt-BR
   data:
     mongodb:
       uri: "mongodb://wishlist:pass@localhost:27018/wishlist?authSource=admin\
