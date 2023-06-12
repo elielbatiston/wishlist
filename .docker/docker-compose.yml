@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongodb
+    restart: on-failure
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: wishlist
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_DATABASE: wishlist
+    ports:
+      - 27018:27017
+    networks:
+      - wishlist-network
+
+networks:
+  wishlist-network:
+    driver: bridge
+    ipam:
+      driver: default
