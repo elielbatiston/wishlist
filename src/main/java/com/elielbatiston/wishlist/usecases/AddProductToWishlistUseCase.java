@@ -21,6 +21,8 @@ public class AddProductToWishlistUseCase {
                 dto.customer().name()
             );
             wishlist = new Wishlist(customer);
+        } else {
+            wishlist.getCustomer().changeName(dto.customer().name());
         }
         wishlist.addProduct(dto.product().toDomain());
         gateway.save(wishlist);
