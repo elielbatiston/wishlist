@@ -9,7 +9,7 @@ public class FieldMessage implements Serializable {
 	private String fieldName;
 	private String message;
 
-	public FieldMessage(String fieldName, String message) {
+	public FieldMessage(final String fieldName, final String message) {
 		this.fieldName = fieldName;
 		this.message = message;
 	}

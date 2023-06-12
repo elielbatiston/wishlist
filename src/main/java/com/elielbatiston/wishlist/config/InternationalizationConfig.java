@@ -16,8 +16,4 @@ public class InternationalizationConfig extends ReloadableResourceBundleMessageS
         messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
     }
-
-    public String getInternationalizedMessage(String key, Object... parameters) {
-        return messageSource().getMessage(key, parameters, null);
-    }
 }

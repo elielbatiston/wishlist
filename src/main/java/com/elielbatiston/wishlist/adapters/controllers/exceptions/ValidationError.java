@@ -6,8 +6,18 @@ import java.util.List;
 public class ValidationError extends StandardError {	
 
 	private static final long serialVersionUID = 1L;
-	
-	public ValidationError(Long timestamp, Integer status, String error, String message, String path) {
+
+	public ValidationError() {
+		super(null, null, null, null, null);
+	}
+
+	public ValidationError(
+		final Long timestamp,
+		final Integer status,
+		final String error,
+		final String message,
+		final String path
+	) {
 		super(timestamp, status, error, message, path); 
 	}
 	
