@@ -23,3 +23,7 @@ springdoc:
     urls:
       - url: /openapi.yml
         name: v0
+
+wishlist:
+  products:
+    maximum-limit-allowed: 20
