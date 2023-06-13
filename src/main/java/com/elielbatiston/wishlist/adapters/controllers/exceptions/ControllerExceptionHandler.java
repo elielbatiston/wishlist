@@ -1,5 +1,6 @@
 package com.elielbatiston.wishlist.adapters.controllers.exceptions;
 
+import com.elielbatiston.wishlist.domains.exceptions.DataIntegrityException;
 import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,11 +21,11 @@ public class ControllerExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ValidationError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
 		ValidationError err = new ValidationError(
-				System.currentTimeMillis(),
-				HttpStatus.UNPROCESSABLE_ENTITY.value(),
-				messagesHelper.getExceptionValidationMessageHeader(),
-				e.getMessage(),
-				request.getRequestURI()
+			System.currentTimeMillis(),
+			HttpStatus.UNPROCESSABLE_ENTITY.value(),
+			messagesHelper.getExceptionValidationMessageHeader(),
+			e.getMessage(),
+			request.getRequestURI()
 		);
 
 		for (FieldError x : e.getBindingResult().getFieldErrors()) {
@@ -37,13 +38,26 @@ public class ControllerExceptionHandler {
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
 		StandardError err = new StandardError(
-				System.currentTimeMillis(),
-				HttpStatus.NOT_FOUND.value(),
-				messagesHelper.getExceptionNotFoundMessageHeader(),
-				e.getMessage(),
-				request.getRequestURI()
+			System.currentTimeMillis(),
+			HttpStatus.NOT_FOUND.value(),
+			messagesHelper.getExceptionNotFoundMessageHeader(),
+			e.getMessage(),
+			request.getRequestURI()
 		);
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+	}
+
+	@ExceptionHandler(DataIntegrityException.class)
+	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
+		StandardError err = new StandardError(
+			System.currentTimeMillis(),
+			HttpStatus.BAD_REQUEST.value(),
+			"BAD REQUEST",
+			e.getMessage(),
+			request.getRequestURI()
+		);
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 }
