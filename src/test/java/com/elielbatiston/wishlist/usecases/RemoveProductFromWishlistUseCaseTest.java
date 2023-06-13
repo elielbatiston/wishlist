@@ -101,20 +101,20 @@ class RemoveProductFromWishlistUseCaseTest {
 
     private Wishlist getWishlist(int qty) {
         final Customer customer = new Customer(
-                "C1",
-                "Customer 1"
+            "C1",
+            "Customer 1"
         );
         final Wishlist wishlist = new Wishlist(
-                "123456789012345678901234",
-                customer
+            "123456789012345678901234",
+            customer
         );
         final Random random = new Random();
         for (int count = 0; count < qty; count++) {
             final Double price = random.nextDouble();
             final Product product = new Product(
-                    String.format("P%s", count + 1),
-                    String.format("Product %s", count + 1),
-                    price
+                String.format("P%s", count + 1),
+                String.format("Product %s", count + 1),
+                price
             );
             wishlist.addProduct(product);
         }

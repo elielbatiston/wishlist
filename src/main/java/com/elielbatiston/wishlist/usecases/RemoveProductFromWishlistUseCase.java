@@ -19,7 +19,7 @@ public class RemoveProductFromWishlistUseCase {
     private MessagesHelper messagesHelper;
 
     public void execute(final InputRemoveProductFromWishlist input) {
-        final Wishlist wishlist = this.getWishlist(input);
+        final Wishlist wishlist = gateway.getWishlist(input.idCustomer());
         final Product product = wishlist.getProducts().stream()
             .filter(it -> it.getId().equals(input.idProduct()))
             .findFirst()
@@ -31,9 +31,5 @@ public class RemoveProductFromWishlistUseCase {
             ));
         wishlist.removeProduct(product);
         gateway.save(wishlist);
-    }
-
-    private Wishlist getWishlist(final InputRemoveProductFromWishlist input) {
-        return gateway.getWishlist(input.idCustomer());
     }
 }
