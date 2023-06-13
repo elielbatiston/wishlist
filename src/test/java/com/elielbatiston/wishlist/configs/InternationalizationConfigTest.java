@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.config;
+package com.elielbatiston.wishlist.configs;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

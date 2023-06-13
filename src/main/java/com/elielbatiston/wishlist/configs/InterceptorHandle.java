@@ -1,5 +1,6 @@
-package com.elielbatiston.wishlist.config;
+package com.elielbatiston.wishlist.configs;
 
+import com.elielbatiston.wishlist.configs.InternationalizationConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

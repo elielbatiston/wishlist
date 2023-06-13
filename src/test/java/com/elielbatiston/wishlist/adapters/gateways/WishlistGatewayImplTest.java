@@ -1,7 +1,7 @@
 package com.elielbatiston.wishlist.adapters.gateways;
 
 import com.elielbatiston.wishlist.adapters.gateways.models.WishlistModel;
-import com.elielbatiston.wishlist.config.InternationalizationConfig;
+import com.elielbatiston.wishlist.configs.InternationalizationConfig;
 import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
@@ -19,22 +19,20 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class WishlistGatewayImplTest {
     @Mock
     private WishlistRepository repository;
 
-    @Mock
+    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private MessagesHelper messagesHelper;
 
     @InjectMocks
     private WishlistGatewayImpl gateway;
 
-    @Mock(lenient = true, answer = Answers.RETURNS_DEEP_STUBS)
+    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private InternationalizationConfig config;
 
     @Test
@@ -71,11 +69,10 @@ class WishlistGatewayImplTest {
         String id = "123456789012345678901234";
         final String message = String.format("Objeto não encontrado! Id: %s, Tipo: %s", id, Wishlist.class);
         when(repository.findByIdCustomer(any())).thenReturn(Optional.empty());
-        when(config.getInternationalizedMessage(any())).thenReturn(message);
-        when(messagesHelper.getExceptionMessageObjectNotFound(any(), any())).thenReturn(message);
-        ObjectNotFoundException exception = assertThrowsExactly(ObjectNotFoundException.class, () -> {
-            gateway.getWishlist(id);
-        });
+        lenient().when(config.getInternationalizedMessage(any())).thenReturn(message);
+        lenient().when(messagesHelper.getExceptionMessageObjectNotFound(any(), any())).thenReturn(message);
+        ObjectNotFoundException exception =
+            assertThrowsExactly(ObjectNotFoundException.class, () -> gateway.getWishlist(id));
         verify(repository).findByIdCustomer(any());
         assertEquals(ObjectNotFoundException.class, exception.getClass());
         assertEquals(message, exception.getMessage());

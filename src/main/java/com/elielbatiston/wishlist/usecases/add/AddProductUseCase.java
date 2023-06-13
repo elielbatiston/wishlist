@@ -1,7 +1,7 @@
 package com.elielbatiston.wishlist.usecases.add;
 
 import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
-import com.elielbatiston.wishlist.config.WishlistConfig;
+import com.elielbatiston.wishlist.configs.WishlistConfig;
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Wishlist;
 import com.elielbatiston.wishlist.domains.exceptions.DataIntegrityException;

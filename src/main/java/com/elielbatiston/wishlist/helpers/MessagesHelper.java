@@ -1,6 +1,6 @@
 package com.elielbatiston.wishlist.helpers;
 
-import com.elielbatiston.wishlist.config.InternationalizationConfig;
+import com.elielbatiston.wishlist.configs.InternationalizationConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

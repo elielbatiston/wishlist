@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.config;
+package com.elielbatiston.wishlist.configs;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
