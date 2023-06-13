@@ -17,11 +17,13 @@ public class WishlistGateway implements WishlistRepositoryPort {
     @Autowired
     private MessagesHelper messagesHelper;
 
+    @Override
     public void save(final Wishlist wishlist) {
         final WishlistModel model = WishlistModel.fromDomain(wishlist);
         repository.save(model);
     }
 
+    @Override
     public Wishlist getWishlist(final String idCustomer) {
         final WishlistModel model = repository.findByIdCustomer(idCustomer)
             .orElseThrow(() -> new ObjectNotFoundException(
