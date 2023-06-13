@@ -1,24 +1,23 @@
-package com.elielbatiston.wishlist.usecases;
+package com.elielbatiston.wishlist.usecases.find;
 
-import com.elielbatiston.wishlist.adapters.gateways.repositories.WishlistGateway;
-import com.elielbatiston.wishlist.helpers.MessagesHelper;
+import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
 import com.elielbatiston.wishlist.domains.Product;
 import com.elielbatiston.wishlist.domains.Wishlist;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
-import com.elielbatiston.wishlist.usecases.dto.InputRemoveProductFromWishlist;
+import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RemoveProductFromWishlistUseCase {
+public class FindProductUseCase {
 
     @Autowired
-    private WishlistGateway gateway;
+    private WishlistGatewayImpl gateway;
 
     @Autowired
     private MessagesHelper messagesHelper;
 
-    public void execute(final InputRemoveProductFromWishlist input) {
+    public OutputFindProductDTO execute(InputFindProductDTO input) {
         final Wishlist wishlist = gateway.getWishlist(input.idCustomer());
         final Product product = wishlist.getProducts().stream()
             .filter(it -> it.getId().equals(input.idProduct()))
@@ -29,7 +28,9 @@ public class RemoveProductFromWishlistUseCase {
                     Product.class.getName()
                 )
             ));
-        wishlist.removeProduct(product);
-        gateway.save(wishlist);
+        return new OutputFindProductDTO(
+            OutputFindProductDTO.OutputFindAProductCustomerDTO.fromDomain(wishlist.getCustomer()),
+            OutputFindProductDTO.OutputFindAProductProductDTO.fromDomain(product)
+        );
     }
 }

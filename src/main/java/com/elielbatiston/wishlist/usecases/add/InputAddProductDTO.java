@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.usecases.dto;
+package com.elielbatiston.wishlist.usecases.add;
 
 import com.elielbatiston.wishlist.domains.Product;
 import jakarta.validation.Valid;
@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-public record InputAddProductToWishlistDTO (
+public record InputAddProductDTO(
     @Valid
     @NotNull(message = "{validation.message.null}")
     CustomerDTO customer,

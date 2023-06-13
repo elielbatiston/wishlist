@@ -1,10 +1,15 @@
 package com.elielbatiston.wishlist.adapters.controllers;
 
-import com.elielbatiston.wishlist.usecases.AddProductToWishlistUseCase;
-import com.elielbatiston.wishlist.usecases.FindAProductInWishlistUseCase;
-import com.elielbatiston.wishlist.usecases.FindAllCustomerProductsUseCase;
-import com.elielbatiston.wishlist.usecases.RemoveProductFromWishlistUseCase;
-import com.elielbatiston.wishlist.usecases.dto.*;
+import com.elielbatiston.wishlist.usecases.add.AddProductUseCase;
+import com.elielbatiston.wishlist.usecases.find.FindProductUseCase;
+import com.elielbatiston.wishlist.usecases.find.InputFindProductDTO;
+import com.elielbatiston.wishlist.usecases.find.OutputFindProductDTO;
+import com.elielbatiston.wishlist.usecases.findall.FindAllProductsUseCase;
+import com.elielbatiston.wishlist.usecases.remove.InputRemoveProductDTO;
+import com.elielbatiston.wishlist.usecases.remove.RemoveProductUseCase;
+import com.elielbatiston.wishlist.usecases.add.InputAddProductDTO;
+import com.elielbatiston.wishlist.usecases.findall.InputFindAllProductsDTO;
+import com.elielbatiston.wishlist.usecases.findall.OutputFindAllProductsDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,21 +26,21 @@ public class WishlistController {
     private static final String WISHLIST_GET_A_PRODUCT_IN_WISHLIST_ENDPOINT = "/{idCustomer}/{idProduct}";
 
     @Autowired
-    private AddProductToWishlistUseCase addProductToWishlistUseCase;
+    private AddProductUseCase addProductUseCase;
 
     @Autowired
-    private RemoveProductFromWishlistUseCase removeProductFromWishlistUseCase;
+    private RemoveProductUseCase removeProductUseCase;
 
     @Autowired
-    private FindAllCustomerProductsUseCase findAllCustomerProductsUseCase;
+    private FindAllProductsUseCase findAllProductsUseCase;
 
     @Autowired
-    private FindAProductInWishlistUseCase findAProductInWishlistUseCase;
+    private FindProductUseCase findProductUseCase;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void wishlist(@Valid @RequestBody final InputAddProductToWishlistDTO dto) {
-        addProductToWishlistUseCase.execute(dto);
+    public void wishlist(@Valid @RequestBody final InputAddProductDTO dto) {
+        addProductUseCase.execute(dto);
     }
 
     @DeleteMapping(WISHLIST_DELETE_A_PRODUCT_ENDPOINT)
@@ -44,29 +49,29 @@ public class WishlistController {
         @PathVariable final String idCustomer,
         @PathVariable final String idProduct
     ) {
-        InputRemoveProductFromWishlist input = new InputRemoveProductFromWishlist(
+        InputRemoveProductDTO input = new InputRemoveProductDTO(
                 idCustomer,
                 idProduct
         );
-        removeProductFromWishlistUseCase.execute(input);
+        removeProductUseCase.execute(input);
     }
 
     @GetMapping(WISHLIST_GET_WISHLIST_ENDPOINT)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<OutputFindAllCustomerProductsDTO> getWishlist(@PathVariable final String idCustomer) {
-        final InputFindAllCustomerProductsDTO input = new InputFindAllCustomerProductsDTO(idCustomer);
-        final OutputFindAllCustomerProductsDTO output = findAllCustomerProductsUseCase.execute(input);
+    public ResponseEntity<OutputFindAllProductsDTO> getWishlist(@PathVariable final String idCustomer) {
+        final InputFindAllProductsDTO input = new InputFindAllProductsDTO(idCustomer);
+        final OutputFindAllProductsDTO output = findAllProductsUseCase.execute(input);
         return ResponseEntity.ok().body(output);
     }
 
     @GetMapping(WISHLIST_GET_A_PRODUCT_IN_WISHLIST_ENDPOINT)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<OutputFindAProductDTO> getAProduct(
+    public ResponseEntity<OutputFindProductDTO> getAProduct(
         @PathVariable final String idCustomer,
         @PathVariable final String idProduct
     ) {
-        final InputFindAProductDTO input = new InputFindAProductDTO(idCustomer, idProduct);
-        final OutputFindAProductDTO output = findAProductInWishlistUseCase.execute(input);
+        final InputFindProductDTO input = new InputFindProductDTO(idCustomer, idProduct);
+        final OutputFindProductDTO output = findProductUseCase.execute(input);
         return ResponseEntity.ok().body(output);
     }
 }

@@ -1,12 +1,13 @@
 package com.elielbatiston.wishlist.usecases;
 
 import com.elielbatiston.wishlist.JsonUtil;
-import com.elielbatiston.wishlist.adapters.gateways.repositories.WishlistGateway;
+import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
 import com.elielbatiston.wishlist.domains.Wishlist;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
-import com.elielbatiston.wishlist.usecases.dto.InputAddProductToWishlistDTO;
+import com.elielbatiston.wishlist.usecases.add.AddProductUseCase;
+import com.elielbatiston.wishlist.usecases.add.InputAddProductDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -21,18 +22,18 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class AddProductToWishlistUseCaseTest {
+class AddProductUseCaseTest {
 
     @Mock
-    private WishlistGateway gateway;
+    private WishlistGatewayImpl gateway;
 
     @Spy
     @InjectMocks
-    private AddProductToWishlistUseCase usecase;
+    private AddProductUseCase usecase;
 
     @Test
     public void testExecuteWishlistIsEmpty() {
-        final InputAddProductToWishlistDTO dto = getDTO("mock/input_add_product_to_wishlist.json");
+        final InputAddProductDTO dto = getDTO("mock/input_add_product_to_wishlist.json");
         when(gateway.getWishlist(any())).thenThrow(new ObjectNotFoundException("Error"));
         usecase.execute(dto);
         verify(gateway).getWishlist(any());
@@ -41,7 +42,7 @@ class AddProductToWishlistUseCaseTest {
 
     @Test
     public void testExecuteWishlistWithAProduct() {
-        final InputAddProductToWishlistDTO dto = getDTO("mock/input_add_product_to_wishlist.json");
+        final InputAddProductDTO dto = getDTO("mock/input_add_product_to_wishlist.json");
         final Wishlist wishlist = getWishlist();
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         usecase.execute(dto);
@@ -64,7 +65,7 @@ class AddProductToWishlistUseCaseTest {
 
     @Test
     public void testExecuteWishlistWithAProductAndChangeCustomerName() {
-        final InputAddProductToWishlistDTO dto = getDTO("mock/input_add_product_to_wishlist_and_change_customer_name.json");
+        final InputAddProductDTO dto = getDTO("mock/input_add_product_to_wishlist_and_change_customer_name.json");
         final Wishlist wishlist = getWishlist();
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         usecase.execute(dto);
@@ -85,8 +86,8 @@ class AddProductToWishlistUseCaseTest {
         assertEquals(dto.product().price(), actual.getProducts().get(1).getPrice());
     }
 
-    private InputAddProductToWishlistDTO getDTO(String path) {
-        final JsonUtil<InputAddProductToWishlistDTO> jsonUtil = new JsonUtil<>(InputAddProductToWishlistDTO.class);
+    private InputAddProductDTO getDTO(String path) {
+        final JsonUtil<InputAddProductDTO> jsonUtil = new JsonUtil<>(InputAddProductDTO.class);
         return jsonUtil.read(path);
     }
 

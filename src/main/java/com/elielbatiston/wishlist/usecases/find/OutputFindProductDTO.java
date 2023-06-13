@@ -1,9 +1,9 @@
-package com.elielbatiston.wishlist.usecases.dto;
+package com.elielbatiston.wishlist.usecases.find;
 
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
 
-public record OutputFindAProductDTO (
+public record OutputFindProductDTO(
     OutputFindAProductCustomerDTO customer,
     OutputFindAProductProductDTO product
 ) {

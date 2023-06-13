@@ -1,26 +1,38 @@
-package com.elielbatiston.wishlist.usecases;
+package com.elielbatiston.wishlist.usecases.add;
 
-import com.elielbatiston.wishlist.adapters.gateways.repositories.WishlistGateway;
+import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
+import com.elielbatiston.wishlist.config.WishlistConfig;
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Wishlist;
+import com.elielbatiston.wishlist.domains.exceptions.DataIntegrityException;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
-import com.elielbatiston.wishlist.usecases.dto.InputAddProductToWishlistDTO;
+import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddProductToWishlistUseCase {
+public class AddProductUseCase {
 
     @Autowired
-    private WishlistGateway gateway;
+    private WishlistConfig config;
 
-    public void execute(final InputAddProductToWishlistDTO input) {
+    @Autowired
+    private WishlistGatewayImpl gateway;
+
+    @Autowired
+    private MessagesHelper messagesHelper;
+
+    public void execute(final InputAddProductDTO input) {
+        final Integer maximumLimitAllowed = config.getWishlistProductsProperties().getMaximumLimitAllowed();
         final Wishlist wishlist = this.getWishlistOrNew(input);
         wishlist.addProduct(input.product().toDomain());
+        if (wishlist.getProducts().size() > maximumLimitAllowed) {
+            throw new DataIntegrityException(messagesHelper.getExceptionMaximumProductLimitExceeded(maximumLimitAllowed));
+        }
         gateway.save(wishlist);
     }
 
-    private Wishlist getWishlistOrNew(final InputAddProductToWishlistDTO input) {
+    private Wishlist getWishlistOrNew(final InputAddProductDTO input) {
         try {
             final Wishlist wishlist = gateway.getWishlist(input.customer().id());
             wishlist.getCustomer().changeName(input.customer().name());

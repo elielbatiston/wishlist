@@ -1,16 +1,16 @@
-package com.elielbatiston.wishlist.usecases.dto;
+package com.elielbatiston.wishlist.usecases.findall;
 
 import com.elielbatiston.wishlist.domains.Wishlist;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record OutputFindAllCustomerProductsDTO (
+public record OutputFindAllProductsDTO(
     OutputFindAllCustomerProductCustomerDTO customer,
     List<OutputFindAllCustomerProductProductDTO> products
 ) {
 
-    public static OutputFindAllCustomerProductsDTO fromDomain(Wishlist wishlist) {
+    public static OutputFindAllProductsDTO fromDomain(Wishlist wishlist) {
         final OutputFindAllCustomerProductCustomerDTO customer = new OutputFindAllCustomerProductCustomerDTO(
             wishlist.getCustomer().getId(),
             wishlist.getCustomer().getName()
@@ -23,7 +23,7 @@ public record OutputFindAllCustomerProductsDTO (
             ))
             .collect(Collectors.toList());
 
-        return new OutputFindAllCustomerProductsDTO(
+        return new OutputFindAllProductsDTO(
             customer,
             products
         );

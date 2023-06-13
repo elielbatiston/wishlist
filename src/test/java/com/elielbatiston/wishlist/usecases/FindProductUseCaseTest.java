@@ -1,12 +1,14 @@
 package com.elielbatiston.wishlist.usecases;
 
-import com.elielbatiston.wishlist.adapters.gateways.repositories.WishlistGateway;
+import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
 import com.elielbatiston.wishlist.domains.Wishlist;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
 import com.elielbatiston.wishlist.helpers.MessagesHelper;
-import com.elielbatiston.wishlist.usecases.dto.*;
+import com.elielbatiston.wishlist.usecases.find.FindProductUseCase;
+import com.elielbatiston.wishlist.usecases.find.InputFindProductDTO;
+import com.elielbatiston.wishlist.usecases.find.OutputFindProductDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,23 +21,23 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class FindAProductInWishlistUseCaseTest {
+class FindProductUseCaseTest {
 
     @Mock
-    private WishlistGateway gateway;
+    private WishlistGatewayImpl gateway;
 
     @Mock
     private MessagesHelper messagesHelper;
 
     @InjectMocks
-    private FindAProductInWishlistUseCase usecase;
+    private FindProductUseCase usecase;
 
     @Test
     public void testExecuteWishlistWithTwoProducts() {
-        final InputFindAProductDTO dto = new InputFindAProductDTO("C1", "P1");
+        final InputFindProductDTO dto = new InputFindProductDTO("C1", "P1");
         final Wishlist wishlist = getWishlist(2);
         when(gateway.getWishlist(any())).thenReturn(wishlist);
-        final OutputFindAProductDTO actual = usecase.execute(dto);
+        final OutputFindProductDTO actual = usecase.execute(dto);
         verify(gateway).getWishlist(any());
         assertEquals(wishlist.getCustomer().getId(), actual.customer().id());
         assertEquals(wishlist.getCustomer().getName(), actual.customer().name());
@@ -46,10 +48,10 @@ class FindAProductInWishlistUseCaseTest {
 
     @Test
     public void testExecuteWishlistWithAProduct() {
-        final InputFindAProductDTO dto = new InputFindAProductDTO("C1", "P1");
+        final InputFindProductDTO dto = new InputFindProductDTO("C1", "P1");
         final Wishlist wishlist = getWishlist(1);
         when(gateway.getWishlist(any())).thenReturn(wishlist);
-        final OutputFindAProductDTO actual = usecase.execute(dto);
+        final OutputFindProductDTO actual = usecase.execute(dto);
         verify(gateway).getWishlist(any());
         assertEquals(wishlist.getCustomer().getId(), actual.customer().id());
         assertEquals(wishlist.getCustomer().getName(), actual.customer().name());
@@ -60,7 +62,7 @@ class FindAProductInWishlistUseCaseTest {
 
     @Test
     public void testExecuteWishlistWithACustomerNotFound() {
-        final InputFindAProductDTO dto = new InputFindAProductDTO("C1", "P1");
+        final InputFindProductDTO dto = new InputFindProductDTO("C1", "P1");
         when(gateway.getWishlist(any())).thenThrow(new ObjectNotFoundException("Error"));
         assertThrowsExactly(ObjectNotFoundException.class, () -> usecase.execute(dto));
         verify(gateway).getWishlist(any());
@@ -68,7 +70,7 @@ class FindAProductInWishlistUseCaseTest {
 
     @Test
     public void testExecuteWishlistWithAProductNotFound() {
-        final InputFindAProductDTO dto = new InputFindAProductDTO("C1", "P2");
+        final InputFindProductDTO dto = new InputFindProductDTO("C1", "P2");
         final Wishlist wishlist = getWishlist(1);
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         assertThrowsExactly(ObjectNotFoundException.class, () -> usecase.execute(dto));

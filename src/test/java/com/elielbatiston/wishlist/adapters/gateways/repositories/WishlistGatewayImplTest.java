@@ -1,5 +1,6 @@
 package com.elielbatiston.wishlist.adapters.gateways.repositories;
 
+import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
 import com.elielbatiston.wishlist.adapters.gateways.repositories.models.WishlistModel;
 import com.elielbatiston.wishlist.config.InternationalizationConfig;
 import com.elielbatiston.wishlist.helpers.MessagesHelper;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class WishlistGatewayTest {
+class WishlistGatewayImplTest {
     @Mock
     private WishlistRepository repository;
 
@@ -31,7 +32,7 @@ class WishlistGatewayTest {
     private MessagesHelper messagesHelper;
 
     @InjectMocks
-    private WishlistGateway gateway;
+    private WishlistGatewayImpl gateway;
 
     @Mock(lenient = true, answer = Answers.RETURNS_DEEP_STUBS)
     private InternationalizationConfig config;

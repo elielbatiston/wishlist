@@ -1,12 +1,13 @@
 package com.elielbatiston.wishlist.usecases;
 
-import com.elielbatiston.wishlist.adapters.gateways.repositories.WishlistGateway;
+import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
 import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
 import com.elielbatiston.wishlist.domains.Wishlist;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
-import com.elielbatiston.wishlist.usecases.dto.InputRemoveProductFromWishlist;
+import com.elielbatiston.wishlist.usecases.remove.InputRemoveProductDTO;
+import com.elielbatiston.wishlist.usecases.remove.RemoveProductUseCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -21,21 +22,21 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class RemoveProductFromWishlistUseCaseTest {
+class RemoveProductUseCaseTest {
 
     @Mock
-    private WishlistGateway gateway;
+    private WishlistGatewayImpl gateway;
 
     @Mock
     private MessagesHelper messagesHelper;
 
     @Spy
     @InjectMocks
-    private RemoveProductFromWishlistUseCase usecase;
+    private RemoveProductUseCase usecase;
 
     @Test
     public void testExecuteWishlistWithTwoProducts() {
-        final InputRemoveProductFromWishlist dto = new InputRemoveProductFromWishlist("C1", "P1");
+        final InputRemoveProductDTO dto = new InputRemoveProductDTO("C1", "P1");
         final Wishlist wishlist = getWishlist(2);
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         usecase.execute(dto);
@@ -55,7 +56,7 @@ class RemoveProductFromWishlistUseCaseTest {
 
     @Test
     public void testExecuteWishlistWithAProduct() {
-        final InputRemoveProductFromWishlist dto = new InputRemoveProductFromWishlist("C1", "P1");
+        final InputRemoveProductDTO dto = new InputRemoveProductDTO("C1", "P1");
         final Wishlist wishlist = getWishlist(1);
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         usecase.execute(dto);
@@ -70,7 +71,7 @@ class RemoveProductFromWishlistUseCaseTest {
 
     @Test
     public void testExecuteWishlistWithoutProductsThenThrowObjectNotFound() {
-        final InputRemoveProductFromWishlist dto = new InputRemoveProductFromWishlist("C1", "P1");
+        final InputRemoveProductDTO dto = new InputRemoveProductDTO("C1", "P1");
         final Wishlist wishlist = getWishlist(0);
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         when(messagesHelper.getExceptionMessageObjectNotFound(any(), any())).thenReturn("mock");
@@ -81,7 +82,7 @@ class RemoveProductFromWishlistUseCaseTest {
 
     @Test
     public void testExecuteWishlistWithProductsThenThrowObjectNotFound() {
-        final InputRemoveProductFromWishlist dto = new InputRemoveProductFromWishlist("C1", "P3");
+        final InputRemoveProductDTO dto = new InputRemoveProductDTO("C1", "P3");
         final Wishlist wishlist = getWishlist(1);
         when(gateway.getWishlist(any())).thenReturn(wishlist);
         when(messagesHelper.getExceptionMessageObjectNotFound(any(), any())).thenReturn("mock");
@@ -92,7 +93,7 @@ class RemoveProductFromWishlistUseCaseTest {
 
     @Test
     public void testExecuteWishlistWithACustomerNotFound() {
-        final InputRemoveProductFromWishlist dto = new InputRemoveProductFromWishlist("C2", "P1");
+        final InputRemoveProductDTO dto = new InputRemoveProductDTO("C2", "P1");
         when(gateway.getWishlist(any())).thenThrow(new ObjectNotFoundException("Error"));
         assertThrowsExactly(ObjectNotFoundException.class, () -> usecase.execute(dto));
         verify(gateway).getWishlist(any());

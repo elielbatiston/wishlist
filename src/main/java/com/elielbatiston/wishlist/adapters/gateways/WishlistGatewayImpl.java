@@ -1,15 +1,15 @@
-package com.elielbatiston.wishlist.adapters.gateways.repositories;
+package com.elielbatiston.wishlist.adapters.gateways;
 
+import com.elielbatiston.wishlist.adapters.gateways.repositories.WishlistRepository;
 import com.elielbatiston.wishlist.adapters.gateways.repositories.models.WishlistModel;
 import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import com.elielbatiston.wishlist.domains.Wishlist;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
-import com.elielbatiston.wishlist.usecases.ports.WishlistRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class WishlistGateway implements WishlistRepositoryPort {
+public class WishlistGatewayImpl implements WishlistGateway {
 
     @Autowired
     private WishlistRepository repository;
