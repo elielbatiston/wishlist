@@ -6,8 +6,6 @@ import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
 import com.elielbatiston.wishlist.domains.Wishlist;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
-import com.elielbatiston.wishlist.usecases.remove.InputDeleteProductDTO;
-import com.elielbatiston.wishlist.usecases.remove.DeleteProductUseCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -45,6 +43,7 @@ class DeleteProductUseCaseTest {
         usecase.execute(dto);
         verify(gateway).getWishlist(any());
         verify(gateway).save(any());
+        verify(gateway, never()).delete(any());
 
         final ArgumentCaptor<Wishlist> captor = ArgumentCaptor.forClass(Wishlist.class);
         verify(gateway).save(captor.capture());
@@ -69,6 +68,7 @@ class DeleteProductUseCaseTest {
         usecase.execute(dto);
         verify(gateway).getWishlist(any());
         verify(gateway).save(any());
+        verify(gateway).delete(any());
 
         final ArgumentCaptor<Wishlist> captor = ArgumentCaptor.forClass(Wishlist.class);
         verify(gateway).save(captor.capture());
@@ -85,6 +85,7 @@ class DeleteProductUseCaseTest {
         assertThrowsExactly(ObjectNotFoundException.class, () -> usecase.execute(dto));
         verify(gateway).getWishlist(any());
         verify(gateway, never()).save(any());
+        verify(gateway, never()).delete(any());
     }
 
     @Test
@@ -96,6 +97,7 @@ class DeleteProductUseCaseTest {
         assertThrowsExactly(ObjectNotFoundException.class, () -> usecase.execute(dto));
         verify(gateway).getWishlist(any());
         verify(gateway, never()).save(any());
+        verify(gateway, never()).delete(any());
     }
 
     @Test
@@ -105,6 +107,7 @@ class DeleteProductUseCaseTest {
         assertThrowsExactly(ObjectNotFoundException.class, () -> usecase.execute(dto));
         verify(gateway).getWishlist(any());
         verify(gateway, never()).save(any());
+        verify(gateway, never()).delete(any());
     }
 
     private Wishlist getWishlist(int qty) {
