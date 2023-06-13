@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.configs;
+package com.elielbatiston.wishlist.configs.untestable;
 
 import com.elielbatiston.wishlist.configs.InternationalizationConfig;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.configs;
+package com.elielbatiston.wishlist.configs.untestable;
 
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;

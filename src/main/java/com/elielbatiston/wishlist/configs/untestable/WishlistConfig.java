@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.configs;
+package com.elielbatiston.wishlist.configs.untestable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

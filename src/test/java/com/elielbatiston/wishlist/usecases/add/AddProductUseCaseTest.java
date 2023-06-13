@@ -2,7 +2,7 @@ package com.elielbatiston.wishlist.usecases.add;
 
 import com.elielbatiston.wishlist.JsonUtil;
 import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
-import com.elielbatiston.wishlist.configs.WishlistConfig;
+import com.elielbatiston.wishlist.configs.untestable.WishlistConfig;
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
 import com.elielbatiston.wishlist.domains.Wishlist;
