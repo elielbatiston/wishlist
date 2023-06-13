@@ -2,13 +2,13 @@ package com.elielbatiston.wishlist.usecases.add;
 
 import com.elielbatiston.wishlist.JsonUtil;
 import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
-import com.elielbatiston.wishlist.config.WishlistConfig;
+import com.elielbatiston.wishlist.configs.WishlistConfig;
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
 import com.elielbatiston.wishlist.domains.Wishlist;
+import com.elielbatiston.wishlist.domains.exceptions.DataIntegrityException;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
-import com.elielbatiston.wishlist.usecases.add.AddProductUseCase;
-import com.elielbatiston.wishlist.usecases.add.InputAddProductDTO;
+import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -17,15 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AddProductUseCaseTest {
 
     @Mock(serializable = true, answer = Answers.RETURNS_DEEP_STUBS)
     private WishlistConfig config;
+
+    @Mock(serializable = true, answer = Answers.RETURNS_DEEP_STUBS)
+    private MessagesHelper messagesHelper;
 
     @Mock
     private WishlistGatewayImpl gateway;
@@ -96,6 +98,18 @@ class AddProductUseCaseTest {
         assertEquals("P2", actualList.get(1).getId());
         assertEquals("Product 2", actualList.get(1).getName());
         assertEquals(89.5, actualList.get(1).getPrice());
+    }
+
+    @Test
+    public void testExecuteWishlistShouldThrowDataIntegrityException() {
+        final InputAddProductDTO dto = getDTO("mock/input_add_product_to_wishlist_and_change_customer_name.json");
+        final Wishlist wishlist = getWishlist();
+        when(gateway.getWishlist(any())).thenReturn(wishlist);
+        when(config.getWishlistProductsProperties().getMaximumLimitAllowed()).thenReturn(1);
+        when(messagesHelper.getExceptionMaximumProductLimitExceeded(any())).thenReturn("mock");
+        assertThrowsExactly(DataIntegrityException.class, () -> usecase.execute(dto));
+        verify(gateway).getWishlist(any());
+        verify(gateway, never()).save(any());
     }
 
     private InputAddProductDTO getDTO(String path) {
