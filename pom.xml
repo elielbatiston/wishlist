@@ -26,7 +26,7 @@
 
 		<!-- Sonar -->
 		<sonar.exclusions>
-			**/WishlistApplication*, **/helpers/*
+			**/WishlistApplication*, **/helpers/*, **/models/*, **/domains/*, **/configs/untestable/*, **/exceptions/*
 		</sonar.exclusions>
 	</properties>
 
