@@ -9,12 +9,10 @@ import com.elielbatiston.wishlist.config.InternationalizationConfig;
 import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;
 import com.elielbatiston.wishlist.usecases.AddProductToWishlistUseCase;
+import com.elielbatiston.wishlist.usecases.FindAProductInWishlistUseCase;
 import com.elielbatiston.wishlist.usecases.FindAllCustomerProductsUseCase;
 import com.elielbatiston.wishlist.usecases.RemoveProductFromWishlistUseCase;
-import com.elielbatiston.wishlist.usecases.dto.InputAddProductToWishlistDTO;
-import com.elielbatiston.wishlist.usecases.dto.InputFindAllCustomerProductsDTO;
-import com.elielbatiston.wishlist.usecases.dto.InputRemoveProductFromWishlist;
-import com.elielbatiston.wishlist.usecases.dto.OutputFindAllCustomerProductsDTO;
+import com.elielbatiston.wishlist.usecases.dto.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Nested;
@@ -65,6 +63,9 @@ public class WishlistControllerTest {
 
     @MockBean
     private FindAllCustomerProductsUseCase findAllCustomerProductsUseCase;
+
+    @MockBean
+    private FindAProductInWishlistUseCase findAProductInWishlistUseCase;
 
     @Autowired
     private InternationalizationConfig config;
@@ -178,9 +179,10 @@ public class WishlistControllerTest {
             assertEquals(2, actual.products().size());
             assertEquals(output.products().get(0).id(), actual.products().get(0).id());
             assertEquals(output.products().get(0).name(), actual.products().get(0).name());
-            assertEquals(output.products().get(1).price(), actual.products().get(1).price());
+            assertEquals(output.products().get(0).price(), actual.products().get(0).price());
             assertEquals(output.products().get(1).id(), actual.products().get(1).id());
             assertEquals(output.products().get(1).name(), actual.products().get(1).name());
+            assertEquals(output.products().get(1).price(), actual.products().get(1).price());
         }
 
         @Test
@@ -216,13 +218,75 @@ public class WishlistControllerTest {
                 );
             final OutputFindAllCustomerProductsDTO.OutputFindAllCustomerProductProductDTO product2 =
                 new OutputFindAllCustomerProductsDTO.OutputFindAllCustomerProductProductDTO(
-                    "P2",
-                    "Product 2",
+                    "P1",
+                    "Product 1",
                     89.5
                 );
             return new OutputFindAllCustomerProductsDTO(
                 customer,
                 Arrays.asList(product1, product2)
+            );
+        }
+    }
+
+    @Nested
+    class GetAProduct {
+        @Test
+        public void testGetAProduct() throws Exception {
+            final OutputFindAProductDTO output = getOutputFindAProductDTO();
+            when(findAProductInWishlistUseCase.execute(any())).thenReturn(output);
+            final MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.get("/wishlist/C1/P1")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Accept-Language", "pt_BR")
+            )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+            assertDoesNotThrow(() -> verify(findAProductInWishlistUseCase).execute(any()));
+            final OutputFindAProductDTO actual = getOutputFindAProductDTO(result);
+            assertInstanceOf(OutputFindAProductDTO.class, actual);
+            assertEquals(output.customer().id(), actual.customer().id());
+            assertEquals(output.customer().name(), actual.customer().name());
+            assertEquals(output.product().id(), actual.product().id());
+            assertEquals(output.product().name(), actual.product().name());
+            assertEquals(output.product().price(), actual.product().price());
+        }
+
+        @Test
+        public void testGetAProductShouldThrowObjectNotFoundException() throws Exception {
+            doThrow(ObjectNotFoundException.class)
+                    .when(findAProductInWishlistUseCase)
+                    .execute(any(InputFindAProductDTO.class));
+            mockMvc.perform(
+                MockMvcRequestBuilders.get("/wishlist/C1/P1")
+                    .contentType(MediaType.APPLICATION_JSON)
+            ).andExpect(MockMvcResultMatchers.status().isNotFound());
+
+            verify(findAProductInWishlistUseCase).execute(any());
+        }
+
+        private OutputFindAProductDTO getOutputFindAProductDTO(MvcResult result)
+            throws JsonProcessingException, UnsupportedEncodingException
+        {
+            final String responseBody = result.getResponse().getContentAsString();
+            return objectMapper.readValue(responseBody, OutputFindAProductDTO.class);
+        }
+
+        private OutputFindAProductDTO getOutputFindAProductDTO() {
+            final OutputFindAProductDTO.OutputFindAProductCustomerDTO customer =
+                new OutputFindAProductDTO.OutputFindAProductCustomerDTO(
+                    "C1",
+                    "Customer 1"
+                );
+            final OutputFindAProductDTO.OutputFindAProductProductDTO product =
+                new OutputFindAProductDTO.OutputFindAProductProductDTO(
+                    "P1",
+                    "Product 1",
+                    89.5
+                );
+            return new OutputFindAProductDTO(
+                customer,
+                product
             );
         }
     }
