@@ -1,6 +1,6 @@
 package com.elielbatiston.wishlist.usecases.remove;
 
-public record InputRemoveProductDTO(
+public record InputDeleteProductDTO(
     String idCustomer,
     String idProduct
 ) { }

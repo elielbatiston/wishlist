@@ -1,6 +1,6 @@
-package com.elielbatiston.wishlist.adapters.gateways.repositories;
+package com.elielbatiston.wishlist.adapters.gateways;
 
-import com.elielbatiston.wishlist.adapters.gateways.repositories.models.WishlistModel;
+import com.elielbatiston.wishlist.adapters.gateways.models.WishlistModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;

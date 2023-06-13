@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RemoveProductUseCase {
+public class DeleteProductUseCase {
 
     @Autowired
     private WishlistGatewayImpl gateway;
@@ -17,7 +17,7 @@ public class RemoveProductUseCase {
     @Autowired
     private MessagesHelper messagesHelper;
 
-    public void execute(final InputRemoveProductDTO input) {
+    public void execute(final InputDeleteProductDTO input) {
         final Wishlist wishlist = gateway.getWishlist(input.idCustomer());
         final Product product = wishlist.getProducts().stream()
             .filter(it -> it.getId().equals(input.idProduct()))

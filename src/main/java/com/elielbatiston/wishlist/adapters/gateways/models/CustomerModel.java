@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.adapters.gateways.repositories.models;
+package com.elielbatiston.wishlist.adapters.gateways.models;
 
 import com.elielbatiston.wishlist.domains.Customer;
 import org.springframework.data.mongodb.core.index.Indexed;

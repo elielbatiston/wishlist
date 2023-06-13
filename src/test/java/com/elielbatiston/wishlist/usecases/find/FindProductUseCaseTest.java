@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.usecases;
+package com.elielbatiston.wishlist.usecases.find;
 
 import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
 import com.elielbatiston.wishlist.domains.Customer;
@@ -14,6 +14,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,9 +43,13 @@ class FindProductUseCaseTest {
         verify(gateway).getWishlist(any());
         assertEquals(wishlist.getCustomer().getId(), actual.customer().id());
         assertEquals(wishlist.getCustomer().getName(), actual.customer().name());
-        assertEquals(wishlist.getProducts().get(0).getId(), actual.product().id());
-        assertEquals(wishlist.getProducts().get(0).getName(), actual.product().name());
-        assertEquals(wishlist.getProducts().get(0).getPrice(), actual.product().price());
+
+        List<Product> expectedList
+                = new ArrayList<>(wishlist.getProducts());
+
+        assertEquals(expectedList.get(0).getId(), actual.product().id());
+        assertEquals(expectedList.get(0).getName(), actual.product().name());
+        assertEquals(expectedList.get(0).getPrice(), actual.product().price());
     }
 
     @Test
@@ -55,9 +61,12 @@ class FindProductUseCaseTest {
         verify(gateway).getWishlist(any());
         assertEquals(wishlist.getCustomer().getId(), actual.customer().id());
         assertEquals(wishlist.getCustomer().getName(), actual.customer().name());
-        assertEquals(wishlist.getProducts().get(0).getId(), actual.product().id());
-        assertEquals(wishlist.getProducts().get(0).getName(), actual.product().name());
-        assertEquals(wishlist.getProducts().get(0).getPrice(), actual.product().price());
+
+        List<Product> expectedList = new ArrayList<>(wishlist.getProducts());
+
+        assertEquals(expectedList.get(0).getId(), actual.product().id());
+        assertEquals(expectedList.get(0).getName(), actual.product().name());
+        assertEquals(expectedList.get(0).getPrice(), actual.product().price());
     }
 
     @Test

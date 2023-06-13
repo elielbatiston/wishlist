@@ -1,7 +1,6 @@
-package com.elielbatiston.wishlist.adapters.gateways.repositories;
+package com.elielbatiston.wishlist.adapters.gateways;
 
-import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
-import com.elielbatiston.wishlist.adapters.gateways.repositories.models.WishlistModel;
+import com.elielbatiston.wishlist.adapters.gateways.models.WishlistModel;
 import com.elielbatiston.wishlist.config.InternationalizationConfig;
 import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import com.elielbatiston.wishlist.domains.Customer;
@@ -14,7 +13,8 @@ import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,9 +55,15 @@ class WishlistGatewayImplTest {
         assertEquals(wishlist.getCustomer().getId(), actual.getCustomer().getId());
         assertEquals(wishlist.getCustomer().getName(), actual.getCustomer().getName());
         assertEquals(1, actual.getProducts().size());
-        assertEquals(wishlist.getProducts().get(0).getId(), actual.getProducts().get(0).getId());
-        assertEquals(wishlist.getProducts().get(0).getName(), actual.getProducts().get(0).getName());
-        assertEquals(wishlist.getProducts().get(0).getPrice(), actual.getProducts().get(0).getPrice());
+
+        List<Product> expectedList
+                = new ArrayList<>(wishlist.getProducts());
+        List<Product> actualList
+                = new ArrayList<>(actual.getProducts());
+
+        assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
+        assertEquals(expectedList.get(0).getName(), actualList.get(0).getName());
+        assertEquals(expectedList.get(0).getPrice(), actualList.get(0).getPrice());
     }
 
     @Test

@@ -1,7 +1,6 @@
 package com.elielbatiston.wishlist.adapters.gateways;
 
-import com.elielbatiston.wishlist.adapters.gateways.repositories.WishlistRepository;
-import com.elielbatiston.wishlist.adapters.gateways.repositories.models.WishlistModel;
+import com.elielbatiston.wishlist.adapters.gateways.models.WishlistModel;
 import com.elielbatiston.wishlist.helpers.MessagesHelper;
 import com.elielbatiston.wishlist.domains.Wishlist;
 import com.elielbatiston.wishlist.domains.exceptions.ObjectNotFoundException;

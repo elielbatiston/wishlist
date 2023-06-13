@@ -1,11 +1,11 @@
-package com.elielbatiston.wishlist.adapters.gateways.repositories.models;
+package com.elielbatiston.wishlist.adapters.gateways.models;
 
 import com.elielbatiston.wishlist.domains.Wishlist;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Document(collection = "wishlist")
@@ -15,9 +15,9 @@ public class WishlistModel {
     @Field("_id")
     private ObjectId id;
     private CustomerModel customer;
-    private List<ProductModel> products;
+    private Set<ProductModel> products;
 
-    public WishlistModel(ObjectId id, CustomerModel customer, List<ProductModel> products) {
+    public WishlistModel(ObjectId id, CustomerModel customer, Set<ProductModel> products) {
         this.id = id;
         this.customer = customer;
         this.products = products;
@@ -40,7 +40,7 @@ public class WishlistModel {
             CustomerModel.fromDomain(wishlist.getCustomer()),
             wishlist.getProducts().stream()
                 .map(it -> ProductModel.fromDomain(it))
-                .collect(Collectors.toList())
+                .collect(Collectors.toSet())
         );
     }
 }

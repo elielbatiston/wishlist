@@ -1,7 +1,8 @@
-package com.elielbatiston.wishlist.usecases;
+package com.elielbatiston.wishlist.usecases.add;
 
 import com.elielbatiston.wishlist.JsonUtil;
 import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
+import com.elielbatiston.wishlist.config.WishlistConfig;
 import com.elielbatiston.wishlist.domains.Customer;
 import com.elielbatiston.wishlist.domains.Product;
 import com.elielbatiston.wishlist.domains.Wishlist;
@@ -10,11 +11,10 @@ import com.elielbatiston.wishlist.usecases.add.AddProductUseCase;
 import com.elielbatiston.wishlist.usecases.add.InputAddProductDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -23,6 +23,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AddProductUseCaseTest {
+
+    @Mock(serializable = true, answer = Answers.RETURNS_DEEP_STUBS)
+    private WishlistConfig config;
 
     @Mock
     private WishlistGatewayImpl gateway;
@@ -35,6 +38,7 @@ class AddProductUseCaseTest {
     public void testExecuteWishlistIsEmpty() {
         final InputAddProductDTO dto = getDTO("mock/input_add_product_to_wishlist.json");
         when(gateway.getWishlist(any())).thenThrow(new ObjectNotFoundException("Error"));
+        when(config.getWishlistProductsProperties().getMaximumLimitAllowed()).thenReturn(20);
         usecase.execute(dto);
         verify(gateway).getWishlist(any());
         verify(gateway).save(any());
@@ -45,6 +49,7 @@ class AddProductUseCaseTest {
         final InputAddProductDTO dto = getDTO("mock/input_add_product_to_wishlist.json");
         final Wishlist wishlist = getWishlist();
         when(gateway.getWishlist(any())).thenReturn(wishlist);
+        when(config.getWishlistProductsProperties().getMaximumLimitAllowed()).thenReturn(20);
         usecase.execute(dto);
         verify(gateway).getWishlist(any());
         verify(gateway).save(any());
@@ -55,12 +60,15 @@ class AddProductUseCaseTest {
         assertEquals(2, actual.getProducts().size());
         assertEquals(dto.customer().id(), actual.getCustomer().getId());
         assertEquals(dto.customer().name(), actual.getCustomer().getName());
-        assertEquals("P2", actual.getProducts().get(0).getId());
-        assertEquals("Product 2", actual.getProducts().get(0).getName());
-        assertEquals(89.5, actual.getProducts().get(0).getPrice());
-        assertEquals(dto.product().id(), actual.getProducts().get(1).getId());
-        assertEquals(dto.product().name(), actual.getProducts().get(1).getName());
-        assertEquals(dto.product().price(), actual.getProducts().get(1).getPrice());
+
+        List<Product> actualList = new ArrayList<>(actual.getProducts());
+
+        assertEquals(dto.product().id(), actualList.get(0).getId());
+        assertEquals(dto.product().name(), actualList.get(0).getName());
+        assertEquals(dto.product().price(), actualList.get(0).getPrice());
+        assertEquals("P2", actualList.get(1).getId());
+        assertEquals("Product 2", actualList.get(1).getName());
+        assertEquals(89.5, actualList.get(1).getPrice());
     }
 
     @Test
@@ -68,6 +76,7 @@ class AddProductUseCaseTest {
         final InputAddProductDTO dto = getDTO("mock/input_add_product_to_wishlist_and_change_customer_name.json");
         final Wishlist wishlist = getWishlist();
         when(gateway.getWishlist(any())).thenReturn(wishlist);
+        when(config.getWishlistProductsProperties().getMaximumLimitAllowed()).thenReturn(20);
         usecase.execute(dto);
         verify(gateway).getWishlist(any());
         verify(gateway).save(any());
@@ -78,12 +87,15 @@ class AddProductUseCaseTest {
         assertEquals(2, actual.getProducts().size());
         assertEquals(dto.customer().id(), actual.getCustomer().getId());
         assertEquals("Customer Change Name", actual.getCustomer().getName());
-        assertEquals("P2", actual.getProducts().get(0).getId());
-        assertEquals("Product 2", actual.getProducts().get(0).getName());
-        assertEquals(89.5, actual.getProducts().get(0).getPrice());
-        assertEquals(dto.product().id(), actual.getProducts().get(1).getId());
-        assertEquals(dto.product().name(), actual.getProducts().get(1).getName());
-        assertEquals(dto.product().price(), actual.getProducts().get(1).getPrice());
+
+        List<Product> actualList = new ArrayList<>(actual.getProducts());
+
+        assertEquals(dto.product().id(), actualList.get(0).getId());
+        assertEquals(dto.product().name(), actualList.get(0).getName());
+        assertEquals(dto.product().price(), actualList.get(0).getPrice());
+        assertEquals("P2", actualList.get(1).getId());
+        assertEquals("Product 2", actualList.get(1).getName());
+        assertEquals(89.5, actualList.get(1).getPrice());
     }
 
     private InputAddProductDTO getDTO(String path) {

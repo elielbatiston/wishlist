@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.usecases;
+package com.elielbatiston.wishlist.usecases.findall;
 
 import com.elielbatiston.wishlist.adapters.gateways.WishlistGatewayImpl;
 import com.elielbatiston.wishlist.domains.Customer;
@@ -13,6 +13,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -39,12 +42,16 @@ class FindAllProductsUseCaseTest {
         assertEquals(wishlist.getCustomer().getId(), actual.customer().id());
         assertEquals(wishlist.getCustomer().getName(), actual.customer().name());
         assertEquals(2, actual.products().size());
-        assertEquals(wishlist.getProducts().get(0).getId(), actual.products().get(0).id());
-        assertEquals(wishlist.getProducts().get(0).getName(), actual.products().get(0).name());
-        assertEquals(wishlist.getProducts().get(0).getPrice(), actual.products().get(0).price());
-        assertEquals(wishlist.getProducts().get(1).getId(), actual.products().get(1).id());
-        assertEquals(wishlist.getProducts().get(1).getName(), actual.products().get(1).name());
-        assertEquals(wishlist.getProducts().get(1).getPrice(), actual.products().get(1).price());
+
+        List<Product> expectedList = new ArrayList<>(wishlist.getProducts());
+        List<OutputFindAllProductsDTO.OutputFindAllCustomerProductProductDTO> actualList = new ArrayList<>(actual.products());
+
+        assertEquals(expectedList.get(0).getId(), actualList.get(0).id());
+        assertEquals(expectedList.get(0).getName(), actualList.get(0).name());
+        assertEquals(expectedList.get(0).getPrice(), actualList.get(0).price());
+        assertEquals(expectedList.get(1).getId(), actualList.get(1).id());
+        assertEquals(expectedList.get(1).getName(), actualList.get(1).name());
+        assertEquals(expectedList.get(1).getPrice(), actualList.get(1).price());
     }
 
     @Test
@@ -61,8 +68,8 @@ class FindAllProductsUseCaseTest {
             "Customer 1"
         );
         final Product product1 = new Product(
-            "P2",
-            "Product 2",
+            "P1",
+            "Product 1",
             89.5
         );
         final Product product2 = new Product(

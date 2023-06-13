@@ -13,8 +13,8 @@ import com.elielbatiston.wishlist.usecases.find.FindProductUseCase;
 import com.elielbatiston.wishlist.usecases.find.InputFindProductDTO;
 import com.elielbatiston.wishlist.usecases.find.OutputFindProductDTO;
 import com.elielbatiston.wishlist.usecases.findall.FindAllProductsUseCase;
-import com.elielbatiston.wishlist.usecases.remove.InputRemoveProductDTO;
-import com.elielbatiston.wishlist.usecases.remove.RemoveProductUseCase;
+import com.elielbatiston.wishlist.usecases.remove.InputDeleteProductDTO;
+import com.elielbatiston.wishlist.usecases.remove.DeleteProductUseCase;
 import com.elielbatiston.wishlist.usecases.add.InputAddProductDTO;
 import com.elielbatiston.wishlist.usecases.findall.InputFindAllProductsDTO;
 import com.elielbatiston.wishlist.usecases.findall.OutputFindAllProductsDTO;
@@ -36,8 +36,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -64,7 +63,7 @@ public class WishlistControllerTest {
     private AddProductUseCase addProductUseCase;
 
     @MockBean
-    private RemoveProductUseCase removeProductUseCase;
+    private DeleteProductUseCase deleteProductUseCase;
 
     @MockBean
     private FindAllProductsUseCase findAllProductsUseCase;
@@ -147,19 +146,19 @@ public class WishlistControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .header("Accept-Language", "pt_BR")
             ).andExpect(MockMvcResultMatchers.status().isNoContent());
-            assertDoesNotThrow(() -> verify(removeProductUseCase).execute(any()));
+            assertDoesNotThrow(() -> verify(deleteProductUseCase).execute(any()));
         }
 
         @Test
         public void testDeleteShouldThrowObjectNotFoundException() throws Exception {
             doThrow(ObjectNotFoundException.class)
-                .when(removeProductUseCase)
-                .execute(any(InputRemoveProductDTO.class));
+                .when(deleteProductUseCase)
+                .execute(any(InputDeleteProductDTO.class));
             mockMvc.perform(
                 MockMvcRequestBuilders.delete("/wishlist/C1/product/P1")
                     .contentType(MediaType.APPLICATION_JSON)
             ).andExpect(MockMvcResultMatchers.status().isNotFound());
-            verify(removeProductUseCase).execute(any());
+            verify(deleteProductUseCase).execute(any());
         }
     }
 
@@ -182,12 +181,18 @@ public class WishlistControllerTest {
             assertEquals(output.customer().id(), actual.customer().id());
             assertEquals(output.customer().name(), actual.customer().name());
             assertEquals(2, actual.products().size());
-            assertEquals(output.products().get(0).id(), actual.products().get(0).id());
-            assertEquals(output.products().get(0).name(), actual.products().get(0).name());
-            assertEquals(output.products().get(0).price(), actual.products().get(0).price());
-            assertEquals(output.products().get(1).id(), actual.products().get(1).id());
-            assertEquals(output.products().get(1).name(), actual.products().get(1).name());
-            assertEquals(output.products().get(1).price(), actual.products().get(1).price());
+
+            List<OutputFindAllProductsDTO.OutputFindAllCustomerProductProductDTO> expectedList
+                = new ArrayList<>(output.products());
+            List<OutputFindAllProductsDTO.OutputFindAllCustomerProductProductDTO> actualList
+                = new ArrayList<>(actual.products());
+
+            assertEquals(expectedList.get(0).id(), actualList.get(0).id());
+            assertEquals(expectedList.get(0).name(), actualList.get(0).name());
+            assertEquals(expectedList.get(0).price(), actualList.get(0).price());
+            assertEquals(expectedList.get(1).id(), actualList.get(1).id());
+            assertEquals(expectedList.get(1).name(), actualList.get(1).name());
+            assertEquals(expectedList.get(1).price(), actualList.get(1).price());
         }
 
         @Test
@@ -229,7 +234,7 @@ public class WishlistControllerTest {
                 );
             return new OutputFindAllProductsDTO(
                 customer,
-                Arrays.asList(product1, product2)
+                Set.of(product1, product2)
             );
         }
     }
