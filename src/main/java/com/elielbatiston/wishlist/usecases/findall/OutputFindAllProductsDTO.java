@@ -2,7 +2,6 @@ package com.elielbatiston.wishlist.usecases.findall;
 
 import com.elielbatiston.wishlist.domains.Wishlist;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
