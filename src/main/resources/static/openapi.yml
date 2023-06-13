@@ -1,0 +1,302 @@
+openapi: 3.1.0
+info:
+  title: @name@
+  version: @version@
+tags:
+  - name: Actuator
+    description: Monitor and interact
+    externalDocs:
+      description: Spring Boot Actuator Web API Documentation
+      url: https://docs.spring.io/spring-boot/docs/current/actuator-api/html/
+  - name: Wishlist
+    description: Customer Wishlist
+paths:
+  /actuator/health:
+    get:
+      operationId: health
+      summary: |
+        The health endpoint provides detailed information about the health of the application.
+      tags:
+        - Actuator
+      responses:
+        '200':
+          description: |
+            OK.
+            
+            Returns UP or DOWN.
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Overall status of the application.
+              examples:
+                up:
+                  $ref: "#/components/examples/actuator-health-up"
+                down:
+                  $ref: "#/components/examples/actuator-health-down"
+        default:
+          description: OK
+
+  /wishlist:
+    description: Add a product to the customer's wishlist
+    post:
+      tags:
+        - Wishlist
+      operationId: wishlist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - customer
+                - product
+              properties:
+                customer:
+                  type: object
+                  required:
+                    - id
+                    - name
+                  properties:
+                    id:
+                      type: string
+                      description: Customer identifier
+                    name:
+                      type: string
+                      description: Customer name
+                product:
+                  type: object
+                  required:
+                    - id
+                    - name
+                    - price
+                  properties:
+                    id:
+                      type: string
+                      description: Product identifier
+                    name:
+                      type: string
+                      description: Product name
+                    price:
+                      type: number
+                      description: Product price
+
+      responses:
+        "201":
+          description: Created
+        default:
+          description: Created
+
+  /wishlist/{idCustomer}:
+    get:
+      description: Find all products on the customer's Wishlist
+      tags:
+        - Wishlist
+      operationId: getWishlist
+      parameters:
+        - name: idCustomer
+          in: path
+          description: Customer identifier
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Ok. Return wishlist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  customer:
+                    type: object
+                    required:
+                      - id
+                      - name
+                    properties:
+                      id:
+                        type: string
+                        description: Customer identifier
+                      name:
+                        type: string
+                        description: Customer name
+                  product:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Product identifier
+                        name:
+                          type: string
+                          description: Product name
+                        price:
+                          type: number
+                          description: Product price
+
+        "404":
+          description: Wishlist not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: integer
+                    description: Event timestamp
+                  status:
+                    type: integer
+                    description: Error status code
+                  error:
+                    type: string
+                  message:
+                    type: string
+                    description: Error detail
+                  path:
+                    type: string
+                    description: Error endpoint
+
+        default:
+          description: Ok. Return wishlist
+
+  /wishlist/{idCustomer}/{idProduct}:
+    get:
+      description: Find a product in the customer wishlist
+      tags:
+        - Wishlist
+      operationId: getAProduct
+      parameters:
+        - name: idCustomer
+          in: path
+          description: Customer identifier
+          required: true
+          schema:
+            type: string
+        - name: idProduct
+          in: path
+          description: Product identifier
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Ok. Return wishlist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  customer:
+                    type: object
+                    required:
+                      - id
+                      - name
+                    properties:
+                      id:
+                        type: string
+                        description: Customer identifier
+                      name:
+                        type: string
+                        description: Customer name
+                  product:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: Product identifier
+                      name:
+                        type: string
+                        description: Product name
+                      price:
+                        type: number
+                        description: Product price
+
+        "404":
+          description: Wishlist or Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: integer
+                    description: Event timestamp
+                  status:
+                    type: integer
+                    description: Error status code
+                  error:
+                    type: string
+                  message:
+                    type: string
+                    description: Error detail
+                  path:
+                    type: string
+                    description: Error endpoint
+
+        default:
+          description: Ok. Returns the wishlist with the searched product
+
+  /wishlist/{idCustomer}/product/{idProduct}:
+    delete:
+      tags:
+        - Wishlist
+      operationId: deleteAProduct
+      parameters:
+        - name: idCustomer
+          in: path
+          description: Customer identifier
+          required: true
+          schema:
+            type: string
+        - name: idProduct
+          in: path
+          description: Product identifier
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "204":
+          description: No content
+
+        "404":
+          description: Wishlist or Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: integer
+                    description: Event timestamp
+                  status:
+                    type: integer
+                    description: Error status code
+                  error:
+                    type: string
+                  message:
+                    type: string
+                    description: Error detail
+                  path:
+                    type: string
+                    description: Error endpoint
+
+        default:
+          description: No content
+
+components:
+  examples:
+    actuator-health-up:
+      summary: "UP"
+      value:
+        status: "UP"
+    actuator-health-down:
+      summary: "DOWN"
+      value:
+        status: "DOWN"

@@ -22,7 +22,7 @@ springdoc:
     path: /swagger-ui.html
     urls:
       - url: /openapi.yml
-        name: v0
+        name: ${spring.appication.name}
 
 wishlist:
   products:
