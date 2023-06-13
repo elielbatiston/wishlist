@@ -1,4 +1,4 @@
-package com.elielbatiston.wishlist.usecases.remove;
+package com.elielbatiston.wishlist.usecases.delete;
 
 public record InputDeleteProductDTO(
     String idCustomer,

@@ -5,8 +5,8 @@ import com.elielbatiston.wishlist.usecases.find.FindProductUseCase;
 import com.elielbatiston.wishlist.usecases.find.InputFindProductDTO;
 import com.elielbatiston.wishlist.usecases.find.OutputFindProductDTO;
 import com.elielbatiston.wishlist.usecases.findall.FindAllProductsUseCase;
-import com.elielbatiston.wishlist.usecases.remove.InputDeleteProductDTO;
-import com.elielbatiston.wishlist.usecases.remove.DeleteProductUseCase;
+import com.elielbatiston.wishlist.usecases.delete.InputDeleteProductDTO;
+import com.elielbatiston.wishlist.usecases.delete.DeleteProductUseCase;
 import com.elielbatiston.wishlist.usecases.add.InputAddProductDTO;
 import com.elielbatiston.wishlist.usecases.findall.InputFindAllProductsDTO;
 import com.elielbatiston.wishlist.usecases.findall.OutputFindAllProductsDTO;
@@ -50,8 +50,8 @@ public class WishlistController {
         @PathVariable final String idProduct
     ) {
         InputDeleteProductDTO input = new InputDeleteProductDTO(
-                idCustomer,
-                idProduct
+            idCustomer,
+            idProduct
         );
         deleteProductUseCase.execute(input);
     }
