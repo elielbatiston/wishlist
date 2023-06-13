@@ -1,12 +1,12 @@
 package com.elielbatiston.wishlist.domains;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Wishlist extends Entity {
 
 	private Customer customer;
-	private List<Product> products;
+	private Set<Product> products;
 
 	public Wishlist(final String id, final Customer customer) {
 		super(id);
@@ -21,16 +21,16 @@ public class Wishlist extends Entity {
 		return customer;
 	}
 
-	public List<Product> getProducts() {
+	public Set<Product> getProducts() {
 		if (this.products == null) {
-			this.products = new ArrayList<>();
+			this.products = new HashSet<>();
 		}
 		return this.products;
 	}
 
 	public void addProduct(Product product) {
 		if (this.products == null) {
-			this.products = new ArrayList<>();
+			this.products = new HashSet<>();
 		}
 		this.products.add(product);
 	}

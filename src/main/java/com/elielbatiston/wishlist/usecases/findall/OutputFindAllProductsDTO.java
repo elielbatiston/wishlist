@@ -3,11 +3,12 @@ package com.elielbatiston.wishlist.usecases.findall;
 import com.elielbatiston.wishlist.domains.Wishlist;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public record OutputFindAllProductsDTO(
     OutputFindAllCustomerProductCustomerDTO customer,
-    List<OutputFindAllCustomerProductProductDTO> products
+    Set<OutputFindAllCustomerProductProductDTO> products
 ) {
 
     public static OutputFindAllProductsDTO fromDomain(Wishlist wishlist) {
@@ -15,13 +16,13 @@ public record OutputFindAllProductsDTO(
             wishlist.getCustomer().getId(),
             wishlist.getCustomer().getName()
         );
-        final List<OutputFindAllCustomerProductProductDTO> products = wishlist.getProducts().stream()
+        final Set<OutputFindAllCustomerProductProductDTO> products = wishlist.getProducts().stream()
             .map(it -> new OutputFindAllCustomerProductProductDTO(
                 it.getId(),
                 it.getName(),
                 it.getPrice()
             ))
-            .collect(Collectors.toList());
+            .collect(Collectors.toSet());
 
         return new OutputFindAllProductsDTO(
             customer,
