@@ -9,7 +9,7 @@ public class CustomerModel {
     private String id;
     private String name;
 
-    public CustomerModel(String id, String name) {
+    public CustomerModel(final String id, final String name) {
         this.id = id;
         this.name = name;
     }
@@ -21,7 +21,7 @@ public class CustomerModel {
         );
     }
 
-    public static CustomerModel fromDomain(Customer customer) {
+    public static CustomerModel fromDomain(final Customer customer) {
         return new CustomerModel(
             customer.getId(),
             customer.getName()

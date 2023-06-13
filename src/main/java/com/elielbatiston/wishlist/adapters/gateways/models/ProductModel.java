@@ -10,7 +10,7 @@ public class ProductModel {
     private String name;
     private Double price;
 
-    public ProductModel(String id, String name, Double price) {
+    public ProductModel(final String id, final String name, final Double price) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -25,7 +25,7 @@ public class ProductModel {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductModel that = (ProductModel) o;
@@ -37,7 +37,7 @@ public class ProductModel {
         return Objects.hash(id);
     }
 
-    public static ProductModel fromDomain(Product product) {
+    public static ProductModel fromDomain(final Product product) {
         return new ProductModel(
             product.getId(),
             product.getName(),

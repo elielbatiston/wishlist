@@ -7,9 +7,7 @@ public class ValidationError extends StandardError {
 
 	private static final long serialVersionUID = 1L;
 
-	public ValidationError() {
-		super(null, null, null, null, null);
-	}
+	private List<FieldMessage> errors = new ArrayList<>();
 
 	public ValidationError(
 		final Long timestamp,
@@ -20,8 +18,6 @@ public class ValidationError extends StandardError {
 	) {
 		super(timestamp, status, error, message, path); 
 	}
-	
-	private List<FieldMessage> errors = new ArrayList<>();
 	
 	public List<FieldMessage> getErrors() {
 		return errors;

@@ -5,7 +5,7 @@ import java.util.Objects;
 public abstract class Entity {
     private String id;
 
-    public Entity(String id) {
+    public Entity(final String id) {
     this.id = id;
   }
 
@@ -14,7 +14,7 @@ public abstract class Entity {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof Entity entity)) return false;
         return Objects.equals(id, entity.id);

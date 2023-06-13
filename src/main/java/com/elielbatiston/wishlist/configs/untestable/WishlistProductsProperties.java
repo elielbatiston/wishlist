@@ -5,10 +5,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "wishlist.products")
 public class WishlistProductsProperties {
+
     @NotBlank
     private Integer maximumLimitAllowed;
 
-    public WishlistProductsProperties(Integer maximumLimitAllowed) {
+    public WishlistProductsProperties(final Integer maximumLimitAllowed) {
         this.maximumLimitAllowed = maximumLimitAllowed;
     }
 

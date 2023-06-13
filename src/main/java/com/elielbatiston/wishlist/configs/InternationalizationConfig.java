@@ -11,7 +11,7 @@ public class InternationalizationConfig extends ReloadableResourceBundleMessageS
 
     private Locale locale;
 
-    private final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+    private ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 
     @Bean
     public MessageSource messageSource() {

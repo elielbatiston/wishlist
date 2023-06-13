@@ -10,11 +10,11 @@ public class JsonUtil<T> {
 
     private Class<T> clazz;
 
-    public JsonUtil(Class<T> clazz) {
+    public JsonUtil(final Class<T> clazz) {
         this.clazz = clazz;
     }
 
-    public T read(String path) {
+    public T read(final String path) {
         try {
             final URI uri = getURI(path);
             final File file = new File(uri);
@@ -29,9 +29,9 @@ public class JsonUtil<T> {
         }
     }
 
-    private URI getURI(String path) throws URISyntaxException {
+    private URI getURI(final String path) throws URISyntaxException {
         return JsonUtil.class.getClassLoader()
-                .getResource(path)
-                .toURI();
+            .getResource(path)
+            .toURI();
     }
 }

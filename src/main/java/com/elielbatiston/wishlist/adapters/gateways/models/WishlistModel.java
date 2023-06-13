@@ -17,7 +17,7 @@ public class WishlistModel {
     private CustomerModel customer;
     private Set<ProductModel> products;
 
-    public WishlistModel(ObjectId id, CustomerModel customer, Set<ProductModel> products) {
+    public WishlistModel(final ObjectId id, final CustomerModel customer, final Set<ProductModel> products) {
         this.id = id;
         this.customer = customer;
         this.products = products;
@@ -33,7 +33,7 @@ public class WishlistModel {
         return wishlist;
     }
 
-    public static WishlistModel fromDomain(Wishlist wishlist) {
+    public static WishlistModel fromDomain(final Wishlist wishlist) {
         final ObjectId id = wishlist.getId() == null ? null : new ObjectId(wishlist.getId());
         return new WishlistModel(
             id,

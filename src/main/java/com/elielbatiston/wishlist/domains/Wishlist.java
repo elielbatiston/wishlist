@@ -28,14 +28,14 @@ public class Wishlist extends Entity {
 		return this.products;
 	}
 
-	public void addProduct(Product product) {
+	public void addProduct(final Product product) {
 		if (this.products == null) {
 			this.products = new HashSet<>();
 		}
 		this.products.add(product);
 	}
 
-	public void removeProduct(Product product) {
+	public void removeProduct(final Product product) {
 		this.getProducts().remove(product);
 	}
 }
