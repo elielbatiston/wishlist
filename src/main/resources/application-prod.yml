@@ -1,0 +1,6 @@
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://wishlist:pass@mongo:27017/wishlist?authSource=admin\
+        &serverSelectionTimeoutMS=2000\
+        &connectTimeoutMS=2000"
