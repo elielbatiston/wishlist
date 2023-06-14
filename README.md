@@ -28,6 +28,7 @@ docker-compose -f ./docker-compose-build.yml up -d
 ocupadas com outras aplicações, antes de subir os containers, favor editar o docker-compose-build.yml e o arquivo Dockerfile 
 mudando as portas do container.*
 
+***Observação**: Todas as informações abaixo levam em consideração que o container wishlist e mongo estão com o status UP.*
 ## Documentação da API
 
 1. __Documentação da API:__ [http://localhost:8080/wishlist-backend/v3/api-docs](http://localhost:8080/wishlist-backend/v3/api-docs)
@@ -35,18 +36,16 @@ mudando as portas do container.*
 
 ## Endereços da aplicação
 
-Após subir o container, os seguintes endereços estarão disponíveis.
-
 1. __BackEnd:__ [http://localhost:8080/wishlist-backend](http://localhost:8080/wishlist-backend)
 2. __Documentação API-DOCS:__ [http://localhost:8080/wishlist-backend/docs/v3/api-docs](http://localhost:8080/wishlist-backend/docs/v3/api-docs)
 3. __Documentação Swagger-UI:__ [http://localhost:8080/wishlist-backend/swagger-ui.html](http://localhost:8080/wishlist-backend/swagger-ui.html)
 
 ## Como testar a aplicação
 
-Com o container da aplicação no ar, você poderá consumir a API das seguintes formas:
+Você poderá consumir a API das seguintes formas:
 
 1. __Documentação Swagger-UI:__ [Acesse a documentação da API](http://localhost:8080/wishlist-backend/swagger-ui.html) 
-e utilize dela para a realização dos testes.
+e faça uso dela para a realização dos testes.
 2. __Através do curl:__ Utilize os comandos curl abaixo para consumir a API.
    - **Adicionar um produto na Wishlist do cliente:**
 ```shell
@@ -82,7 +81,7 @@ curl --location --request GET 'localhost:8080/wishlist-backend/wishlist/C1/P1' \
 --header 'Accept-Language: pt_BR'
 ```
    
-***OBSERVAÇÃO:** Os comandos acima precisaram que o curl esteja instalado em sua máquina.*
+***Observação:** Os comandos acima precisaram que o curl esteja instalado em sua máquina.*
 
 3. __Arquivo do Postman:__ Arquivo do postman para importar e consumir a API. 
 [O arquivo pode ser baixado aqui](https://github.com/elielbatiston/wishlist/blob/main/wishlist.postman_collection.json)
