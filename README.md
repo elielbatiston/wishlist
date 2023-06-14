@@ -15,7 +15,7 @@ Esse sistema está programado para aceitar as linguagens **pt_BR** e **un_US**.
 **Passo 1:** Faça o clone do projeto no diretório de sua preferência.
 
 ```shell
-https://github.com/elielbatiston/wishlist
+git clone https://github.com/elielbatiston/wishlist
 ```
 
 **Passo 2:** Vá para o terminal, acesse o diretório que você clonou o projeto e execute o comando abaixo:
