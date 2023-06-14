@@ -3,12 +3,16 @@
 Serviço HTTP para as funcionalidades de Wishlist do cliente.
 Esse sistema está programado para aceitar as linguagens **pt_BR** e **un_US**.
 
-- [Wishlist](#wishlist) 
-   - [1 - Primeiros passos](#primeiros-passos) 
-   - [2 - Documentação da API](#documentação-da-api) 
-   - [3 - Endereços da aplicação](#endereços-da-aplicação) 
-   - [4 - Como testar a aplicação](#como-testar-a-aplicação)
-   - [5 - Teste de cobertura](#teste-de-cobertura)
+- [Wishlist](#wishlist)
+   - [1 - Ambiente](#ambiente)
+   - [2 - Primeiros passos](#primeiros-passos) 
+   - [3 - Documentação da API](#documentação-da-api) 
+   - [4 - Endereços da aplicação](#endereços-da-aplicação) 
+   - [5 - Como testar a aplicação](#como-testar-a-aplicação)
+   - [6 - Teste de cobertura](#teste-de-cobertura)
+
+## Ambiente
+Está API foi desenvolvida com Java 17 e para os testes foi utilizado o JUnit e Mockito.
 
 ## Primeiros passos
 
