@@ -18,7 +18,7 @@
 		<java.version>17</java.version>
 
 		<hibernate-validator>8.0.0.Final</hibernate-validator>
-		<spring-docs.version>1.7.0</spring-docs.version>
+		<spring-docs.version>2.1.0</spring-docs.version>
 
 		<!-- Tests -->
 		<mockito-inline.version>5.2.0</mockito-inline.version>
@@ -54,7 +54,7 @@
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>${spring-docs.version}</version>
 		</dependency>
 
