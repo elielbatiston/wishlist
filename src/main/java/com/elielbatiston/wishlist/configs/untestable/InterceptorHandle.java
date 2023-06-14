@@ -22,6 +22,9 @@ public class InterceptorHandle implements HandlerInterceptor {
         final String language = request.getHeader("Accept-Language");
         if (language != null) {
             final List<String> languages = Arrays.asList(language.split("_"));
+            if (languages.size() < 2) {
+                return true;
+            }
             final Locale locale = new Locale(languages.get(0), languages.get(1));
             config.setLocale(locale);
         }
