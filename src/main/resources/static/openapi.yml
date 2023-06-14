@@ -2,6 +2,9 @@ openapi: 3.0.3
 info:
   title: @name@
   version: @version@
+servers:
+  - url: /wishlist-backend
+    description: API Context
 tags:
   - name: Actuator
     description: Monitor and interact

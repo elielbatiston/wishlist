@@ -37,7 +37,7 @@ mudando as portas do container.*
 ## Endereços da aplicação
 
 1. __BackEnd:__ [http://localhost:8080/wishlist-backend](http://localhost:8080/wishlist-backend)
-2. __Documentação API-DOCS:__ [http://localhost:8080/wishlist-backend/docs/v3/api-docs](http://localhost:8080/wishlist-backend/docs/v3/api-docs)
+2. __Documentação API-DOCS:__ [http://localhost:8080/wishlist-backend/v3/api-docs](http://localhost:8080/wishlist-backend/v3/api-docs)
 3. __Documentação Swagger-UI:__ [http://localhost:8080/wishlist-backend/swagger-ui.html](http://localhost:8080/wishlist-backend/swagger-ui.html)
 
 ## Como testar a aplicação
