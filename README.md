@@ -32,7 +32,6 @@ mudando as portas do container.*
 
 1. __Documentação da API:__ [http://localhost:8080/wishlist-backend/v3/api-docs](http://localhost:8080/wishlist-backend/v3/api-docs)
 2. __Documentação Visual da API:__ [http://localhost:8080/wishlist-backend/swagger-ui.html](http://localhost:8080/wishlist-backend/swagger-ui.html)
-3. __Relatório de cobertura de testes:__ [https://github.com/elielbatiston/wishlist/blob/main/target/site/jacoco/index.html](https://github.com/elielbatiston/wishlist/blob/main/target/site/jacoco/index.html)
 
 ## Endereços da aplicação
 
@@ -90,8 +89,10 @@ curl --location --request GET 'localhost:8080/wishlist-backend/wishlist/C1/P1' \
 
 ## Teste de cobertura
 
-Foi utilizado o jacoco para a geração do teste de cobertura do código. Execute o comando abaixo para gerar o relatório 
-ou [clique aqui para abrir o relatório](https://github.com/elielbatiston/wishlist/blob/main/target/site/jacoco/index.html)
+Foi utilizado o jacoco para a geração do teste de cobertura do código. Execute o comando abaixo para gerar o relatório. 
 ```shell
 mvn -B clean jacoco:prepare-agent verify jacoco:report
 ``` 
+
+<p align="center"><img src="src/main/resources/medias/coverage.png.png"></p>
+
