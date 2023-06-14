@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OutputFindProductDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wishlist</a> &gt; <a href="index.source.html" class="el_package">com.elielbatiston.wishlist.usecases.find</a> &gt; <span class="el_source">OutputFindProductDTO.java</span></div><h1>OutputFindProductDTO.java</h1><pre class="source lang-java linenums">package com.elielbatiston.wishlist.usecases.find;
+
+import com.elielbatiston.wishlist.domains.Customer;
+import com.elielbatiston.wishlist.domains.Product;
+
+<span class="fc" id="L6">public record OutputFindProductDTO(</span>
+    OutputFindAProductCustomerDTO customer,
+    OutputFindAProductProductDTO product
+) {
+
+<span class="fc" id="L11">    public record OutputFindAProductCustomerDTO(</span>
+        String id,
+        String name
+    ) {
+
+        public static OutputFindAProductCustomerDTO fromDomain(Customer customer) {
+<span class="fc" id="L17">            return new OutputFindAProductCustomerDTO(</span>
+<span class="fc" id="L18">                customer.getId(),</span>
+<span class="fc" id="L19">                customer.getName()</span>
+            );
+        }
+    }
+
+<span class="fc" id="L24">    public record OutputFindAProductProductDTO(</span>
+            String id,
+            String name,
+            Double price
+    ) {
+
+        public static OutputFindAProductProductDTO fromDomain(Product product) {
+<span class="fc" id="L31">            return new OutputFindAProductProductDTO(</span>
+<span class="fc" id="L32">                product.getId(),</span>
+<span class="fc" id="L33">                product.getName(),</span>
+<span class="fc" id="L34">                product.getPrice()</span>
+            );
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
