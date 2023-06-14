@@ -94,5 +94,5 @@ Foi utilizado o jacoco para a geração do teste de cobertura do código. Execut
 mvn -B clean jacoco:prepare-agent verify jacoco:report
 ``` 
 
-<p align="center"><img src="src/main/resources/medias/coverage.png.png"></p>
+<p align="center"><img src="https://github.com/elielbatiston/wishlist/blob/main/src/main/resources/medias/coverage.png"></p>
 
