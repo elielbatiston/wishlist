@@ -69,10 +69,7 @@ public class WishlistControllerTest {
     private FindAllProductsUseCase findAllProductsUseCase;
 
     @MockBean
-    private FindProductUseCase findProductUseCase;
-
-    @Autowired
-    private InternationalizationConfig config;
+    private FindProductUseCase findProductUseCase;    
 
     @Nested
     class Create {

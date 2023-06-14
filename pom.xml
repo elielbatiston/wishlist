@@ -17,7 +17,6 @@
 	<properties>
 		<java.version>17</java.version>
 
-		<hibernate-validator>8.0.0.Final</hibernate-validator>
 		<spring-docs.version>2.1.0</spring-docs.version>
 
 		<!-- Tests -->
@@ -48,8 +47,7 @@
 
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate-validator}</version>
+			<artifactId>hibernate-validator</artifactId>			
 		</dependency>
 
 		<dependency>
@@ -85,6 +83,11 @@
 			<artifactId>mockito-inline</artifactId>
 			<version>${mockito-inline.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
