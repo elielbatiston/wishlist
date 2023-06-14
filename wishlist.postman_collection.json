@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "00a938de-528a-47f1-8344-77d058c93250",
+		"name": "wishlist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt_BR",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en_US",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customer\": {\n        \"id\": \"C1\",\n        \"name\": \"Customer 1\"\n    },\n    \"product\": {\n        \"id\": \"P1\",\n        \"name\": \"Product 1\",\n        \"price\": 15.98\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/wishlist-backend/wishlist",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wishlist-backend",
+						"wishlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt_BR",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en_US",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/wishlist-backend/wishlist/C1/product/P1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wishlist-backend",
+						"wishlist",
+						"C1",
+						"product",
+						"P1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAProduct",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt_BR",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en_US",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/wishlist-backend/wishlist/C1/P3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wishlist-backend",
+						"wishlist",
+						"C1",
+						"P3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt_BR",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/wishlist-backend/wishlist/C1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wishlist-backend",
+						"wishlist",
+						"C1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
