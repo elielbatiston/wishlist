@@ -12,7 +12,12 @@ Esse sistema está programado para aceitar as linguagens **pt_BR** e **un_US**.
    - [6 - Teste de cobertura](#teste-de-cobertura)
 
 ## Ambiente
-Está API foi desenvolvida com Java 17 e para os testes foi utilizado o JUnit e Mockito.
+Para o ambiente de desenvolvimento foi utilizado:
+1. __Linguagem:__ Java 17
+2. __Framework http:__ Spring Boot
+3. __Gerenciador de dependência:__ Maven
+4. __Banco de dados__: MongoDB
+5. __Container:__ Docker
 
 ## Primeiros passos
 
